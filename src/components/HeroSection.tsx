@@ -9,35 +9,7 @@ import {
   IoAddOutline,
   IoStar,
 } from 'react-icons/io5'
-
-interface CTAButtonProps {
-  text: string
-  icon: React.ReactNode
-  onClick?: () => void
-  href?: string
-}
-
-function CTAButton({ text, icon, onClick, href }: CTAButtonProps) {
-  const buttonContent = (
-    <motion.button
-      className='bg-white text-[#020664] px-2 pr-1 py-1.5 rounded-full flex items-center space-x-1.5 font-medium hover:shadow-lg transition-shadow duration-300 text-xs'
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      onClick={onClick}
-    >
-      <span>{text}</span>
-      <div className='bg-[#0055D6] text-white p-2 rounded-full text-xs'>
-        {icon}
-      </div>
-    </motion.button>
-  )
-
-  if (href) {
-    return <a href={href}>{buttonContent}</a>
-  }
-
-  return buttonContent
-}
+import Button from './Button'
 
 export default function HeroSection() {
   const [isBlueFront, setIsBlueFront] = useState(true)
@@ -167,9 +139,10 @@ export default function HeroSection() {
         </nav>
 
         <div className='w-48 flex justify-end'>
-          <CTAButton
-            text='Buy Gift Card'
+          <Button
+            label='Buy Gift Card'
             icon={<IoArrowUpOutline className='w-3.5 h-3.5 rotate-45' />}
+            onClick={() => console.log('Buy Gift Card clicked!')}
           />
         </div>
       </motion.header>
@@ -202,9 +175,10 @@ export default function HeroSection() {
             </motion.p>
 
             <motion.div className='space-y-2' variants={itemVariants}>
-              <CTAButton
-                text='Button Component/More Services'
+              <Button
+                label='Button Component/More Services'
                 icon={<IoDownloadOutline className='w-3.5 h-3.5' />}
+                onClick={() => console.log('Hero button clicked!')}
               />
 
               <motion.a
