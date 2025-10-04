@@ -3,6 +3,7 @@ import TrustedBrandsSection from '@/components/TrustedBrandsSection'
 import ValuePropositionSection from '@/components/ValuePropositionSection'
 import TwoColumnSection from '@/components/TwoColumnSection'
 import HowItWorksSection from '@/components/HowItWorksSection'
+import FeaturesSection from '@/components/FeaturesSection'
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <TwoColumnSection />
       <HowItWorksSection />
       <ValuePropositionSection />
+      <FeaturesSection />
     </div>
   )
 }
