@@ -86,6 +86,7 @@ const HowItWorksSection: React.FC = () => {
       observer.disconnect()
     }
   }, [isLoaded])
+
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -199,7 +200,6 @@ const HowItWorksSection: React.FC = () => {
                   <Image
                     src={step.image}
                     alt={step.title}
-                    // if index is == 2 width and height will be 80
                     width={index === 2 ? 90 : 75}
                     height={index === 2 ? 90 : 75}
                     className='object-contain'
@@ -311,34 +311,30 @@ const HowItWorksSection: React.FC = () => {
         >
           <div className='max-w-4xl mx-auto'>
             <motion.div
-              className='relative bg-gradient-to-br from-[#002C70] via-[#0055D6] to-[#4A90E2] rounded-2xl overflow-hidden shadow-2xl flex flex-col items-center justify-center border border-[#e3e8f0]'
+              className='relative bg-gray-300 rounded-2xl overflow-hidden shadow-2xl flex flex-col items-center justify-center border border-[#e3e8f0] min-h-[300px]'
               variants={itemVariants}
               onMouseEnter={() => setShowHoverControls(true)}
               onMouseLeave={() => setShowHoverControls(false)}
             >
+              {/* Video element */}
               <video
                 ref={videoRef}
-                className='w-full h-auto'
+                className='w-full h-full object-cover'
+                poster='/images/video-poster.jpg'
                 preload='none'
-                poster='https://peach.blender.org/wp-content/uploads/bbb-splash.png'
-                muted={isMuted}
+                playsInline
+                onClick={handlePlayPause}
               >
-                {isLoaded && (
-                  <source
-                    src='https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
-                    type='video/mp4'
-                  />
-                )}
+                <source src='/videos/how-it-works.mp4' type='video/mp4' />
                 Your browser does not support the video tag.
               </video>
 
-              {/* Play button overlay (when video is paused) */}
+              {/* Play button overlay (when video is not playing) */}
               {!isPlaying && (
                 <button
                   onClick={handlePlayPause}
                   className='absolute inset-0 m-auto flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#0055D6] to-[#002C70] hover:from-[#0066FF] hover:to-[#003380] rounded-full shadow-2xl border-4 border-white transition-all duration-300 transform hover:scale-110 z-20 focus:outline-none focus:ring-4 focus:ring-[#0055D6]/30'
                   aria-label='Play video'
-                  style={{ left: '0', right: '0', top: '0', bottom: '0' }}
                 >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -357,7 +353,6 @@ const HowItWorksSection: React.FC = () => {
                   onClick={handlePlayPause}
                   className='absolute inset-0 m-auto flex items-center justify-center w-16 h-16 bg-black/70 hover:bg-black/80 rounded-full shadow-xl transition-all duration-200 z-20 focus:outline-none focus:ring-4 focus:ring-white/30'
                   aria-label='Pause video'
-                  style={{ left: '0', right: '0', top: '0', bottom: '0' }}
                 >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'

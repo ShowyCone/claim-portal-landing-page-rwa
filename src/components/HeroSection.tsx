@@ -176,7 +176,7 @@ export default function HeroSection() {
 
             <motion.div className='space-y-2' variants={itemVariants}>
               <Button
-                label='Button Component/More Services'
+                label='Redeem Now'
                 icon={<IoDownloadOutline className='w-3.5 h-3.5' />}
                 onClick={() => console.log('Hero button clicked!')}
               />
