@@ -5,6 +5,7 @@ import TwoColumnSection from '@/components/TwoColumnSection'
 import HowItWorksSection from '@/components/HowItWorksSection'
 import FeaturesSection from '@/components/FeaturesSection'
 import WhoItsForSection from '@/components/WhoItsForSection'
+import GlobalRolloutSection from '@/components/GlobalRolloutSection'
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <ValuePropositionSection />
       <FeaturesSection />
       <WhoItsForSection />
+      <GlobalRolloutSection />
     </div>
   )
 }
