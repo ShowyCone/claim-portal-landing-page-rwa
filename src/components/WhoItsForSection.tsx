@@ -157,7 +157,7 @@ export default function WhoItsForSection() {
             {/* Title */}
             <div>
               <h2 className='text-4xl lg:text-5xl font-bold bg-gradient-to-r from-[#0055D6] to-[#002C70] bg-clip-text text-transparent leading-tight'>
-                Who It's For
+                Who It&apos;s For
               </h2>
             </div>
 

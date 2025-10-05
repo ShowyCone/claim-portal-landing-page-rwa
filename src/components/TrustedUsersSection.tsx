@@ -80,7 +80,7 @@ const TrustedUsersSection = () => {
                 </div>
               </div>
               <p className='text-sm md:text-base leading-relaxed text-gray-700 italic'>
-                "{testimonial.text}"
+                &quot;{testimonial.text}&quot;
               </p>
             </motion.div>
           ))}

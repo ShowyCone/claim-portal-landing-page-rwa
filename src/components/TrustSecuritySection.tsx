@@ -1,10 +1,9 @@
 'use client'
 
 import React from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { FaLock, FaShieldAlt } from 'react-icons/fa'
 import { TbZoomExclamation } from 'react-icons/tb'
-import Image from 'next/image'
 
 interface TrustCard {
   id: number
@@ -15,7 +14,6 @@ interface TrustCard {
 
 const TrustSecuritySection: React.FC = () => {
   const ref = React.useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.5 })
 
   const trustCards: TrustCard[] = [
     {
@@ -74,7 +72,7 @@ const TrustSecuritySection: React.FC = () => {
       </motion.h2>
 
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
-        {trustCards.map((card, index) => (
+        {trustCards.map((card) => (
           <div
             key={card.id}
             className='relative rounded-[30px] px-3 py-8 min-h-[340px] transition-all duration-500 hover:scale-[1.02] shadow-lg bg-[#E8E8E852] hover:bg-gradient-to-b hover:from-[#0055D6] hover:to-[#020664] group'
