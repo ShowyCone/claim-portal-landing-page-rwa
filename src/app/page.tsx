@@ -8,6 +8,7 @@ import WhoItsForSection from '@/components/WhoItsForSection'
 import GlobalRolloutSection from '@/components/GlobalRolloutSection'
 import GiftCardJourneySection from '@/components/GiftCardJourneySection'
 import TrustSecuritySection from '@/components/TrustSecuritySection'
+import TrustedUsersSection from '@/components/TrustedUsersSection'
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
       <GlobalRolloutSection />
       <TrustSecuritySection />
       <GiftCardJourneySection />
+      <TrustedUsersSection />
     </div>
   )
 }
