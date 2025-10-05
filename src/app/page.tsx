@@ -6,6 +6,7 @@ import HowItWorksSection from '@/components/HowItWorksSection'
 import FeaturesSection from '@/components/FeaturesSection'
 import WhoItsForSection from '@/components/WhoItsForSection'
 import GlobalRolloutSection from '@/components/GlobalRolloutSection'
+import GiftCardJourneySection from '@/components/GiftCardJourneySection'
 import TrustSecuritySection from '@/components/TrustSecuritySection'
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
       <WhoItsForSection />
       <GlobalRolloutSection />
       <TrustSecuritySection />
+      <GiftCardJourneySection />
     </div>
   )
 }
