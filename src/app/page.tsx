@@ -9,6 +9,7 @@ import GlobalRolloutSection from '@/components/GlobalRolloutSection'
 import GiftCardJourneySection from '@/components/GiftCardJourneySection'
 import TrustSecuritySection from '@/components/TrustSecuritySection'
 import TrustedUsersSection from '@/components/TrustedUsersSection'
+import FAQSection from '@/components/FAQSection'
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
       <TrustSecuritySection />
       <GiftCardJourneySection />
       <TrustedUsersSection />
+      <FAQSection />
     </div>
   )
 }
