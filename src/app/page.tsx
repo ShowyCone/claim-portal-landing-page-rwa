@@ -6,6 +6,7 @@ import HowItWorksSection from '@/components/HowItWorksSection'
 import FeaturesSection from '@/components/FeaturesSection'
 import WhoItsForSection from '@/components/WhoItsForSection'
 import GlobalRolloutSection from '@/components/GlobalRolloutSection'
+import TrustSecuritySection from '@/components/TrustSecuritySection'
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <FeaturesSection />
       <WhoItsForSection />
       <GlobalRolloutSection />
+      <TrustSecuritySection />
     </div>
   )
 }
