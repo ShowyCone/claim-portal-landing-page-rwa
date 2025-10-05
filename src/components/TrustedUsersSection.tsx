@@ -37,7 +37,7 @@ const TrustedUsersSection = () => {
   ]
 
   return (
-    <section className='bg-[#EFEFEF] py-12'>
+    <section className='bg-white py-12'>
       <div className='max-w-7xl mx-auto px-8 md:px-16'>
         <motion.div
           className='text-center mb-12'
@@ -55,7 +55,7 @@ const TrustedUsersSection = () => {
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={index}
-              className='bg-[#EFEFEF] rounded-[20px] shadow-2xl hover:shadow-3xl transition-all p-6 hover:scale-[1.02] cursor-pointer border border-gray-200/40'
+              className='bg-white rounded-[20px] shadow-2xl hover:shadow-3xl transition-all p-6 hover:scale-[1.02] cursor-pointer border border-gray-200/40'
               style={{
                 boxShadow:
                   '0 8px 32px 0 rgba(0, 85, 214, 0.10), 0 1.5px 8px 0 rgba(0,44,112,0.08)',

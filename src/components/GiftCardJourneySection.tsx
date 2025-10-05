@@ -93,7 +93,7 @@ export default function GiftCardJourneySection() {
   ]
 
   return (
-    <section className='bg-[#EFEFEF] py-12 lg:py-16'>
+    <section className='bg-white py-12 lg:py-16'>
       <motion.div
         className='max-w-7xl mx-auto px-8 md:px-16 relative'
         variants={containerVariants}

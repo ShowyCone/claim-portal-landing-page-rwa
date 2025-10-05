@@ -10,6 +10,7 @@ import GiftCardJourneySection from '@/components/GiftCardJourneySection'
 import TrustSecuritySection from '@/components/TrustSecuritySection'
 import TrustedUsersSection from '@/components/TrustedUsersSection'
 import FAQSection from '@/components/FAQSection'
+import FinalBanner from '@/components/FinalBanner'
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
       <GiftCardJourneySection />
       <TrustedUsersSection />
       <FAQSection />
+      <FinalBanner />
     </div>
   )
 }
