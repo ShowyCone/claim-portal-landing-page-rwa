@@ -4,6 +4,7 @@ import ValuePropositionSection from '@/components/ValuePropositionSection'
 import TwoColumnSection from '@/components/TwoColumnSection'
 import HowItWorksSection from '@/components/HowItWorksSection'
 import FeaturesSection from '@/components/FeaturesSection'
+import WhoItsForSection from '@/components/WhoItsForSection'
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <HowItWorksSection />
       <ValuePropositionSection />
       <FeaturesSection />
+      <WhoItsForSection />
     </div>
   )
 }
