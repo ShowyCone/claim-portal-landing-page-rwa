@@ -68,7 +68,7 @@ export default function HeroSection() {
 
   return (
     <motion.section
-      className='bg-[#020664] m-5 rounded-[40px] h-[calc(100vh-2.5rem)] flex flex-col overflow-hidden relative'
+      className='bg-[#020664] m-5 rounded-[40px] h-[calc(100vh-2.5rem)] flex flex-col overflow-hidden relative pb-15 lg:pb-0'
       variants={containerVariants}
       initial='hidden'
       animate='visible'
@@ -222,7 +222,7 @@ export default function HeroSection() {
           </motion.div>
 
           <motion.div
-            className='lg:col-span-3 relative flex items-center justify-center h-80 lg:h-96 w-full z-10'
+            className='lg:col-span-3 relative flex items-center justify-center h-80 lg:h-96 w-full z-10 mt-18 lg:mt-0'
             variants={itemVariants}
           >
             <motion.div

@@ -87,7 +87,7 @@ export default function WhoItsForSection() {
             variants={leftColumnVariants}
           >
             <motion.div
-              className='relative w-80 h-80 flex items-center justify-center'
+              className='relative w-80 h-80 flex items-center justify-center py-50 lg:py-0'
               whileHover='hover'
               initial='initial'
             >

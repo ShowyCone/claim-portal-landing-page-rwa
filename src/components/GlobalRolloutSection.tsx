@@ -103,7 +103,7 @@ export default function GlobalRolloutSection() {
               alt='Global Rollout Coverage Map'
               width={1352}
               height={513}
-              className='w-full h-auto object-contain rounded-lg'
+              className='w-full h-auto object-contain rounded-lg relative z-0 lg:z-auto'
               priority
             />
           </div>
@@ -111,7 +111,7 @@ export default function GlobalRolloutSection() {
 
         {/* Banner Section */}
         <motion.div className='w-full -mt-10' variants={bannerVariants}>
-          <div className='bg-gradient-to-r from-[#02074B] to-[#0F40A5] rounded-lg p-6'>
+          <div className='bg-gradient-to-r from-[#02074B] to-[#0F40A5] rounded-lg p-6 relative z-10 lg:z-auto'>
             <div className='flex flex-col items-center justify-between gap-6 lg:gap-8'>
               {/* Left Side - Text */}
               <div className='text-center lg:text-left lg:flex-1'>

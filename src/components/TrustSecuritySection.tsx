@@ -61,7 +61,10 @@ const TrustSecuritySection: React.FC = () => {
   ]
 
   return (
-    <section className='py-20 px-16 w-full mx-auto bg-white' ref={ref}>
+    <section
+      className='py-8 px-4 md:py-20 md:px-16 w-full mx-auto bg-white'
+      ref={ref}
+    >
       <motion.h2
         className='text-4xl md:text-5xl font-bold text-center mb-12 bg-gradient-to-r from-[#0055D6] to-[#002C70] bg-clip-text text-transparent'
         initial={{ opacity: 0, y: 30 }}
@@ -71,7 +74,7 @@ const TrustSecuritySection: React.FC = () => {
         Trust & Security
       </motion.h2>
 
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
+      <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6'>
         {trustCards.map((card) => (
           <div
             key={card.id}

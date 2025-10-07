@@ -100,9 +100,9 @@ export default function FinalBanner() {
             </div>
           </div>
 
-          <div className='relative z-10 h-full flex flex-col md:flex-row items-center justify-between p-6 md:p-8'>
+          <div className='relative z-10 h-full flex flex-col md:flex-row justify-center items-center md:justify-between p-6 md:p-8'>
             <motion.div
-              className='flex-1 flex flex-col items-start space-y-4 md:space-y-5 text-left mb-6 md:mb-0 md:ml-32'
+              className='flex flex-col justify-center items-center md:items-start space-y-4 md:space-y-5 text-center md:text-left md:flex-1 md:mb-0 md:ml-32'
               variants={textVariants}
             >
               <h2
@@ -136,22 +136,6 @@ export default function FinalBanner() {
                 </div>
               </div>
             </motion.div>
-
-            <div className='flex-1 relative flex justify-center md:hidden'>
-              <motion.div
-                variants={cardVariants}
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Image
-                  src='/images/Blue-Gift-Card-50.png'
-                  alt='Gift Card'
-                  width={180}
-                  height={270}
-                  className='w-auto h-auto max-h-[200px]'
-                />
-              </motion.div>
-            </div>
           </div>
         </motion.div>
 

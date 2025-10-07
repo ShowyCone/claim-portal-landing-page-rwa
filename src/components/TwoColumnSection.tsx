@@ -135,7 +135,7 @@ export default function TwoColumnSection() {
           >
             {/* Main Heading */}
             <motion.h2
-              className='text-2xl md:text-3xl lg:text-4xl font-semibold text-[#0055D6] leading-tight pr-16'
+              className='text-2xl md:text-3xl lg:text-4xl font-semibold text-[#0055D6] leading-tight pr-0 text-center lg:text-left'
               variants={rightColumnVariants}
             >
               Claim Portal converts physical/digital gift cards into $RWAINC

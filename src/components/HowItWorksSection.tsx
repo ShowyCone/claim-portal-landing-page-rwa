@@ -240,7 +240,7 @@ const HowItWorksSection: React.FC = () => {
 
         {/* Steps Column - Mobile */}
         <motion.div
-          className='lg:hidden space-y-12 mb-16'
+          className='lg:hidden space-y-8 mb-16'
           initial='hidden'
           whileInView='visible'
           viewport={{ once: true, margin: '-50px' }}
@@ -249,50 +249,49 @@ const HowItWorksSection: React.FC = () => {
           {steps.map((step, index) => (
             <motion.div
               key={step.id}
-              className='flex flex-col items-center text-center'
+              className='flex flex-row items-center justify-start text-left relative gap-4 min-h-[110px]'
+              style={{ alignItems: 'flex-start' }}
               variants={itemVariants}
             >
-              {/* Icon Container */}
+              {/* Icon Container con número arriba a la izquierda */}
               <div
-                className='w-24 h-24 mb-4 flex items-center justify-center'
+                className='relative w-20 h-20 flex items-center justify-center'
                 style={{
                   background:
                     'linear-gradient(180deg, #020664 0%, #0055D6 100%)',
                   borderRadius: '25px 25px 25px 0px',
                 }}
               >
+                <span className='absolute -top-3 -left-3 w-9 h-9 bg-[#0055D6] text-white rounded-full flex items-center justify-center text-base font-bold shadow-md'>
+                  {step.id}
+                </span>
                 <Image
                   src={step.image}
                   alt={step.title}
-                  width={40}
-                  height={40}
+                  width={48}
+                  height={48}
                   className='object-contain'
                 />
               </div>
-
-              {/* Step Number */}
-              <div className='w-8 h-8 bg-[#0055D6] text-white rounded-full flex items-center justify-center text-sm font-bold mb-3'>
-                {step.id}
-              </div>
-
-              {/* Text Content */}
-              <div className='max-w-xs'>
+              <div className='flex flex-col justify-center w-full max-w-[180px] min-h-[80px]'>
                 <h3 className='text-lg font-bold text-[#0055D6] mb-2'>
                   {step.title}
                 </h3>
-                <p className='text-gray-400 text-sm leading-relaxed'>
+                <p className='text-gray-400 text-base leading-relaxed mb-2'>
                   {step.subtitle}
                 </p>
               </div>
-
               {/* Arrow for mobile (except last item) */}
               {index < steps.length - 1 && (
-                <motion.div className='mt-6 rotate-90' variants={arrowVariants}>
+                <motion.div
+                  className='ml-4 rotate-90 flex items-center'
+                  variants={arrowVariants}
+                >
                   <Image
                     src='/images/arrow-1.png'
                     alt='Next step'
-                    width={40}
-                    height={20}
+                    width={36}
+                    height={18}
                     className='object-contain opacity-60'
                   />
                 </motion.div>
