@@ -4,6 +4,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { FaLock, FaShieldAlt } from 'react-icons/fa'
 import { TbZoomExclamation } from 'react-icons/tb'
+import Image from 'next/image'
 
 interface TrustCard {
   id: number
@@ -49,10 +50,14 @@ const TrustSecuritySection: React.FC = () => {
     {
       id: 4,
       icon: (
-        <span className='text-8xl flex items-center justify-center text-[#0055D6] group-hover:text-white transition-colors duration-500'>
-          <div className='w-24 h-24 bg-gradient-to-br from-[#0055D6] to-[#002C70] rounded-lg flex items-center justify-center font-bold text-white text-3xl'>
-            RWA
-          </div>
+        <span className='flex items-center justify-center w-full'>
+          <Image
+            src='/images/RWALogoWhiteText.svg'
+            alt='RWA Logo'
+            width={320}
+            height={160}
+            className='w-80 h-40 transition-all duration-500 group-hover:invert group-hover:brightness-0'
+          />
         </span>
       ),
       text: 'Backed by RWA Inc.',
