@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { section } from 'framer-motion/client'
+import { useEffect, useState } from 'react'
 
 interface Feature {
   title: string
@@ -10,17 +11,29 @@ interface Feature {
 }
 
 export default function FeaturesSection() {
-  // Configuración de estrellitas
-  // Estrellitas con Tailwind
-  // Estrellitas aún más pequeñas, más dispersas y con mayor variación de altura
-  const stars = Array.from({ length: 18 }, (_, i) => ({
-    id: i,
-    left: `${30 + Math.random() * 40}%`,
-    top: `${-40 + Math.random() * 90}px`, // aún más arriba (-40px a 50px)
-    size: 0.1 + Math.random() * 0.1,
-    anim: `star-tw-${i}`,
-    delay: `${0.5 + Math.random() * 2}s`,
-  }))
+  // Generar estrellitas solo en el cliente para evitar error de hidratación
+  const [stars, setStars] = useState<
+    Array<{
+      id: number
+      left: string
+      top: string
+      size: number
+      anim: string
+      delay: string
+    }>
+  >([])
+
+  useEffect(() => {
+    const generated = Array.from({ length: 18 }, (_, i) => ({
+      id: i,
+      left: `${30 + Math.random() * 40}%`,
+      top: `${-40 + Math.random() * 90}px`,
+      size: 0.1 + Math.random() * 0.1,
+      anim: `star-tw-${i}`,
+      delay: `${0.5 + Math.random() * 2}s`,
+    }))
+    setStars(generated)
+  }, [])
   const features: Feature[] = [
     {
       title: 'Easy Claims',
