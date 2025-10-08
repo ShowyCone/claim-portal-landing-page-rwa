@@ -103,7 +103,7 @@ export default function FeaturesSection() {
         <div className='absolute top-0 left-1/2 transform -translate-x-1/2 w-full z-20'>
           <Image
             src='/images/top-decoration.png'
-            alt=''
+            alt='Top Decoration'
             unoptimized
             width={160}
             height={160}

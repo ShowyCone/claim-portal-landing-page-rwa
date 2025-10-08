@@ -101,13 +101,13 @@ export default function HeroSection() {
       <div className='pointer-events-none absolute top-0 -left-10 z-[99] w-[800px] h-[400px]'>
         <img
           src='/light.svg'
-          alt='Rayo de luz diagonal'
+          alt='Diagonal light beam'
           className='h-[600px] object-contain -top-15 left-0 absolute'
           draggable='false'
         />
         <img
           src='/light.svg'
-          alt='Rayo de luz diagonal corto'
+          alt='Short diagonal light beam'
           className='h-[460px] object-contain absolute opacity-70 top-2 -left-20'
           draggable='false'
         />
