@@ -94,6 +94,51 @@ export default function TwoColumnSection() {
             variants={leftColumnVariants}
           >
             <div className='relative w-full max-w-md mx-auto'>
+              {/* Diamond Decoration - Top Right */}
+              <motion.div
+                className='absolute -top-10 right-25 z-30'
+                initial={{ rotate: 0, scale: 1, y: 0 }}
+                animate={{
+                  rotate: [12, -12, 12],
+                  scale: [0.92, 1, 0.92],
+                  y: [0, -20, 0, 20, 0] // animación de subir y bajar
+                }}
+                transition={{ repeat: Infinity, repeatType: 'loop', duration: 10, ease: 'easeInOut' }}
+                style={{ width: '100px', height: '100px' }}
+              >
+                <Image
+                  src='/images/diamond-decoration.png'
+                  alt='Diamond Decoration Top Right'
+                  width={100}
+                  height={100}
+                  className='object-contain'
+                  draggable={false}
+                />
+              </motion.div>
+
+              {/* Diamond Decoration - Bottom Left */}
+              <motion.div
+                className='absolute bottom-18 left-5 z-30'
+                initial={{ rotate: 0, scale: 1, y: 0 }}
+                animate={{
+                  rotate: [-12, 12, -12],
+                  scale: [0.92, 1, 0.92],
+                  y: [0, 20, 0, -20, 0] // animación de subir y bajar
+                }}
+                transition={{ repeat: Infinity, repeatType: 'loop', duration: 10, ease: 'easeInOut' }}
+                style={{ width: '100px', height: '100px' }}
+              >
+                <Image
+                  src='/images/diamond-decoration.png'
+                  alt='Diamond Decoration Bottom Left'
+                  width={100}
+                  height={100}
+                  className='object-contain'
+                  draggable={false}
+                  style={{ filter: 'brightness(1) grayscale(1)' }}
+                />
+              </motion.div>
+
               {/* Gift Card - Behind and smaller */}
               <motion.div
                 className='absolute top-1/2 left-1/2 transform translate-x-[10%] -translate-y-[70%] z-10'
