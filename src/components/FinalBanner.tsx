@@ -50,13 +50,13 @@ export default function FinalBanner() {
       zIndex: 3,
     },
     {
-      image: '/images/Blue-Gift-Card-50.png',
+      image: '/images/Blue-Gift-Card-25.png',
       rotation: 5,
       delay: 0.4,
       zIndex: 2,
     },
     {
-      image: '/images/Blue-Gift-Card-50.png',
+      image: '/images/Blue-Gift-Card-10.png',
       rotation: 5,
       delay: 0.6,
       zIndex: 1,
@@ -107,7 +107,7 @@ export default function FinalBanner() {
 
           <div className='relative z-10 h-full flex flex-col md:flex-row justify-center items-center md:justify-between p-6 md:p-8'>
             <motion.div
-              className='flex flex-col justify-center items-center md:items-start space-y-4 md:space-y-5 text-center md:text-left md:flex-1 md:mb-0 md:ml-32'
+              className='flex flex-col justify-center items-center md:items-start text-center md:text-left md:mb-0 md:ml-32 w-fit gap-3'
               variants={textVariants}
             >
               <h2
@@ -123,7 +123,7 @@ export default function FinalBanner() {
                 Ready to Claim Your $RWAINC?
               </h2>
 
-              <div className='flex flex-col gap-3 items-center'>
+              <div className='flex flex-col gap-3 items-center self-center'>
                 <div className='flex flex-col gap-3 items-center w-full'>
                   <Button
                     label='Buy your Gift Card Now'
@@ -181,9 +181,16 @@ export default function FinalBanner() {
               whileInView='visible'
               viewport={{ once: true, amount: 0.2 }}
               whileHover={{
-                scale: 1.05,
+                scale: 1.12,
+                y: -20,
+                rotate: 0,
                 zIndex: 10,
-                transition: { duration: 0.3 },
+                boxShadow: '0 12px 32px 0 rgba(0,0,0,0.25)',
+                transition: {
+                  type: 'spring',
+                  stiffness: 350,
+                  damping: 22,
+                },
               }}
             >
               <Image
