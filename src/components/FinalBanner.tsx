@@ -64,7 +64,12 @@ export default function FinalBanner() {
   ]
 
   return (
-    <section className='bg-white py-6 px-5'>
+    <section
+      className='bg-white py-6 px-5'
+      style={{
+        background: 'linear-gradient(180deg, #FFFFFF 80%, #EFEFEF 100%)',
+      }}
+    >
       <div className='relative max-w-6xl mx-auto'>
         <motion.div
           className='relative rounded-[40px] overflow-hidden'
