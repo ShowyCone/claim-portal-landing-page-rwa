@@ -36,27 +36,27 @@ export default function FeaturesSection() {
   }, [])
   const features: Feature[] = [
     {
-      title: 'Easy Claims',
+      title: 'Secure one-time codes',
       description:
-        'Submit and track your claims effortlessly with our intuitive interface.',
+        'Scratch, QR or NFC codes with anti-replay validation to prevent reuse or fraud.',
       image: '/images/features1.png',
     },
     {
-      title: 'Instant Processing',
+      title: 'Real-time USD-to-token- calculation',
       description:
-        'Get your claims processed quickly with our automated system.',
+        'Convert your USD balance to $RWAINC instantly with live rates, no hidden fees.',
       image: '/images/features2.png',
     },
     {
-      title: 'Secure Payments',
+      title: 'Multi-language & mobile-first.',
       description:
-        'Receive secure payments directly to your preferred account.',
+        'Optimized for mobile and kiosks, with flows in English, Spanish, and more.',
       image: '/images/features3.png',
     },
     {
-      title: '24/7 Support',
+      title: 'Wallet integration',
       description:
-        'Our support team is available around the clock to help you.',
+        'Connect via WalletConnect, MetaMask, or Web3 apps to receive tokens instantly.',
       image: '/images/features4.png',
     },
   ]
