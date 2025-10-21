@@ -43,15 +43,20 @@ Pages:
 
 - `/giftcard` – Shows a demo code with a QR and Code 128 barcode.
 - `/scan` – Uses the device camera to scan QR or Code128 and calls the redeem API.
+- `/redeem?token=...` – Opens from the QR/barcode, validates a signed token and redeems server-side.
 
 API endpoints:
 
-- `GET /api/giftcard/qr.png?code=GFT-2025-AB12` – QR PNG encoding the code string.
-- `GET /api/giftcard/barcode.png?code=GFT-2025-AB12` – Code 128 PNG of the code.
+- `GET /api/giftcard/qr.png?code=GFT-2025-AB12` – QR PNG encoding a signed redeem URL (not the raw code).
+- `GET /api/giftcard/barcode.png?code=GFT-2025-AB12` – Code 128 PNG encoding the same redeem URL; slightly smaller scale for long strings.
 - `POST /api/giftcard/redeem` – Body `{ code: string, amount?: number }` marks the code redeemed (or decrements balance when `amount` is provided).
+- `POST /api/giftcard/redeem-by-token` – Body `{ token: string }` validates the token and redeems (used by the scanner when it reads a URL).
+- `GET /api/giftcard/status?token=...` or `?code=...` – Returns `{ ok, exists, status, balance, codeMasked }` for polling UI updates.
 
 Notes:
 
 - This is a mock demo with an in-memory store (`src/lib/giftcardStore.ts`). Data resets on server restart.
 - The seeded demo code is `GFT-2025-AB12` with a balance of 100.
-- For production, replace the in-memory store with a database and use opaque/signed tokens in QR instead of raw codes.
+- QR/barcode contain a short-lived signed token (HMAC-SHA256) that expires after 15 minutes and is validated server-side.
+- Optional env var: `GIFTCARD_SIGNING_SECRET` to override the demo secret.
+- For production, replace the in-memory store with a database and use short opaque IDs or JWTs with expiry/nonce, rate-limit redemptions, and log audit events.
