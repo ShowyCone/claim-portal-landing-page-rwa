@@ -85,7 +85,7 @@ export function GiftCardBarcode({ amount, code }: GiftCardBarcodeProps) {
               </div>
 
               {/* How to Redeem */}
-              <div className="mb-4 text-xs">
+              <div className=" text-xs">
                 <h4 className="font-bold mb-2">How to Redeem</h4>
                 <ol className="text-gray-700 text-[8px] space-y-1 list-decimal list-inside">
                   <li>Visit www.rwa.inc/claim</li>
@@ -105,7 +105,7 @@ export function GiftCardBarcode({ amount, code }: GiftCardBarcodeProps) {
               </div>
 
               {/* Scratch section */}
-              <div className="flex flex-col items-center gap-3 mb-4">
+              <div className="flex px-6  items-center gap-3 mb-4">
                 <div className="bg-gray-700 text-white w-full py-2 px-3 rounded text-center font-bold text-xs">
                   SCRATCH YOUR CODE
                 </div>

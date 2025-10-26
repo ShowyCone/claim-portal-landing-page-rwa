@@ -74,5 +74,5 @@ export function redeemCard(
 }
 
 // Seed one demo card on module load for convenience
-const seeded = issueCard({ code: "GFT-2025-AB12", balance: 100 });
+const seeded = issueCard({ code: "GFT-2025-AB12", balance: 50 });
 export const demoGiftCardCode = seeded.code;

@@ -19,7 +19,7 @@ export async function GET(req: Request) {
       text: redeemUrl,
       // Slightly reduce scale to keep long URLs scannable
       scale: 2,
-      height: 12, // mm
+      height: 80, // mm
       includetext: true,
       textxalign: "center",
       textsize: 9,

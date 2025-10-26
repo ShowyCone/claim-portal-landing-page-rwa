@@ -1,6 +1,7 @@
 import { GiftCardBarcode } from "@/components/GiftCard/GiftCardBarcode"
 import { GiftCardQr } from "@/components/GiftCard/GiftCardQr"
 import { demoGiftCardCode, getCard } from "@/lib/giftcardStore";
+import Link from "next/link";
 
 export default function GiftCardPage() {
   const demoCode = "GCRWA28082025000001"
@@ -11,23 +12,36 @@ export default function GiftCardPage() {
   return (
     <main className="min-h-screen bg-white">
       {/* Header */}
-      <div className="border-b border-gray-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+<div className="border-b border-gray-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          {/* This main container uses justify-between to space out the two main groups */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+
+            {/* 1. Header Text (Left Side) */}
             <div>
               <h1 className="text-2xl sm:text-3xl font-bold text-blue-900">Only Demo Purposes</h1>
               <p className="text-sm text-gray-600 mt-1">
                 This is a mockup demonstration of the gift card redemption system
               </p>
             </div>
-            <div className="inline-flex items-center gap-2 bg-cyan-100 text-cyan-900 px-3 py-1 rounded-full text-xs font-semibold">
-              <span className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse" />
-              Demo Mode
-            </div>
+
+              <Link 
+                href="/scan" 
+                className="bg-[#0055D6] text-white px-4 py-2 rounded-full inline-flex sm:items-center space-x-1.5 font-medium hover:shadow-lg transition-shadow duration-300 text-xs"
+              > 
+                Go to Scanner Demo
+              </Link>
+              {/*
+              <div className="inline-flex items-center gap-2 bg-cyan-100 text-cyan-900 px-3 py-1 rounded-full text-xs font-semibold">
+                <span className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse" />
+                Demo Mode
+              </div>
+              */}
+
           </div>
         </div>
       </div>
-
+      
       {/* Main content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         {/* Introduction section */}
@@ -47,6 +61,7 @@ export default function GiftCardPage() {
               <p className="text-sm text-gray-600 text-center">Scratch and reveal your code</p>
             </div>
             <GiftCardBarcode amount={demoAmount} code={code} />
+            <div className=" text-sm text-gray-400">Demo Gift Card Code: {code}</div>
           </div>
 
           {/* QR code card */}
@@ -56,6 +71,7 @@ export default function GiftCardPage() {
               <p className="text-sm text-gray-600 text-center">Scan with your mobile device</p>
             </div>
             <GiftCardQr amount={card?.balance} code={code} />
+            <div className=" text-sm text-gray-400">Demo Gift Card Code: {code}</div>
           </div>
         </div>
 
