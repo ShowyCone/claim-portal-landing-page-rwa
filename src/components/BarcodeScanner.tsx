@@ -2,19 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import { BrowserMultiFormatReader, IScannerControls } from "@zxing/browser";
-
-type RedeemResult = {
-  ok: boolean;
-  error?: string;
-  card?: { code: string; status: string; balance: number };
-};
+import { FaCamera } from "react-icons/fa";
+import { StopCircle } from "lucide-react";
 
 export default function BarcodeScanner() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const readerRef = useRef<BrowserMultiFormatReader | null>(null);
   const [scanning, setScanning] = useState(false);
   const [message, setMessage] = useState<string>("Idle");
-  const [result, setResult] = useState<RedeemResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [manual, setManual] = useState("");
   const controlsRef = useRef<IScannerControls | null>(null);
@@ -29,7 +24,6 @@ export default function BarcodeScanner() {
 
   const startScan = async () => {
     setError(null);
-    setResult(null);
     setMessage("Starting camera…");
     setScanning(true);
     try {
@@ -48,8 +42,9 @@ export default function BarcodeScanner() {
             controls.stop();
             controlsRef.current = null;
             setScanning(false);
-            setMessage(`Scanned: ${res.getText()}`);
-            await redeem(res.getText());
+            const text = res.getText();
+            setMessage(`Scanned: ${text}`);
+            redirectToRedeem(text);
           }
         }
       );
@@ -61,48 +56,30 @@ export default function BarcodeScanner() {
     }
   };
 
-  const redeem = async (text: string) => {
+  const redirectToRedeem = (text: string) => {
     try {
-      let r: Response;
-      try {
-        const u = new URL(text);
-        const token = u.searchParams.get("token");
-        if (token) {
-          r = await fetch("/api/giftcard/redeem-by-token", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ token }),
-          });
-        } else {
-          // Fallback to raw text as code
-          r = await fetch("/api/giftcard/redeem", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ code: text }),
-          });
-        }
-      } catch {
-        // Not a valid URL, treat as code
-        r = await fetch("/api/giftcard/redeem", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ code: text }),
-        });
+      const u = new URL(text);
+      const token = u.searchParams.get("token");
+      if (token) {
+        window.location.href = u.toString();
+        return;
       }
-      const data: RedeemResult = await r.json();
-      setResult(data);
-      if (!data.ok) setError(data.error || "redeem_failed");
-    } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : String(e);
-      setError(msg);
+      // URL without token, fallback to code param
+      window.location.href = `/redeem?code=${encodeURIComponent(text)}`;
+    } catch {
+      // Not a URL -> treat as raw code
+      window.location.href = `/redeem?code=${encodeURIComponent(text)}`;
     }
   };
 
   return (
-    <div className="w-full max-w-md mx-auto">
-      <div className="rounded-xl border p-4 bg-white/60 dark:bg-neutral-900/40">
-        <div className="text-sm text-neutral-500 mb-2">Scanner</div>
-        <div className="aspect-[3/4] w-full bg-black/80 rounded overflow-hidden flex items-center justify-center">
+    <div className="w-full mx-auto max-w-2xl">
+      {/* Scanner */}
+      <div className="p-4">
+        <p className="text-sm text-neutral-500">
+          Press start scan to capture the code on your camera
+        </p>
+        <div className="aspect-[3/4] max-h-[400px] w-full bg-black/80 rounded overflow-hidden flex items-center justify-center">
           <video
             ref={videoRef}
             className="w-full h-full object-cover"
@@ -114,29 +91,16 @@ export default function BarcodeScanner() {
         {error && (
           <div className="mt-2 text-red-600 text-sm">Error: {error}</div>
         )}
-        {result && (
-          <div className="mt-2 text-sm">
-            {result.ok ? (
-              <div>
-                Redeemed <span className="font-mono">{result.card?.code}</span>{" "}
-                • status: {result.card?.status} • balance: ${" "}
-                {result.card?.balance}
-              </div>
-            ) : (
-              <div>Redeem failed: {result.error}</div>
-            )}
-          </div>
-        )}
-        <div className="mt-3 flex gap-2">
+        <div className="mt-3 flex w-full items-center justify-center gap-2">
           <button
-            className="px-3 py-2 rounded bg-black text-white disabled:opacity-50"
+            className="px-3 py-2 rounded-xl bg-[#0055D6] flex items-center gap-2 text-white disabled:opacity-50 cursor-pointer"
             onClick={startScan}
             disabled={scanning}
           >
-            {scanning ? "Scanning…" : "Start Scan"}
+            <FaCamera /> {scanning ? "Scanning…" : "Start Scan"}
           </button>
           <button
-            className="px-3 py-2 rounded border"
+            className="px-3 py-2 border flex items-center gap-2 border-blue-900 text-blue-900 rounded-xl cursor-pointer"
             onClick={() => {
               controlsRef.current?.stop();
               controlsRef.current = null;
@@ -144,28 +108,39 @@ export default function BarcodeScanner() {
               setMessage("Idle");
             }}
           >
-            Stop
+            <StopCircle /> Stop
           </button>
         </div>
 
-        <div className="mt-4">
-          <div className="text-sm text-neutral-500 mb-1">
-            Or enter code manually
-          </div>
+        <div className="text-sm text-center text-neutral-500 mt-4 mb-2">
+          Manual input
+        </div>
+        <div className="space-y-3">
+          <input
+            value={manual}
+            onChange={(e) => setManual(e.target.value)}
+            placeholder="Paste redeem URL or enter code (e.g., GFT-2025-AB12)"
+            className="w-full px-3 py-2 rounded border bg-white border-blue-900 text-blue-900 cursor-pointer"
+          />
           <div className="flex gap-2">
-            <input
-              value={manual}
-              onChange={(e) => setManual(e.target.value)}
-              placeholder="Enter code (e.g., GFT-2025-AB12)"
-              className="flex-1 px-3 py-2 rounded border bg-white dark:bg-neutral-800"
-            />
             <button
-              className="px-3 py-2 rounded border"
-              onClick={() => redeem(manual)}
+              className="px-3 py-2 rounded-xl bg-[#0055D6] text-white cursor-pointer"
+              onClick={() => redirectToRedeem(manual)}
             >
-              Redeem
+              Go to Redeem
+            </button>
+            <button
+              className="px-3 py-2 border-blue-900 text-blue-900 rounded-xl border cursor-pointer"
+              onClick={() => setManual("")}
+            >
+              Clear
             </button>
           </div>
+          <p className="text-xs text-neutral-500">
+            Tip: If you paste a redeem URL with a token, we’ll use it. If you
+            enter a raw code, we’ll append it as
+            <code className="mx-1">?code=...</code>.
+          </p>
         </div>
       </div>
     </div>

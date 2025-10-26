@@ -10,17 +10,14 @@ type PageProps = {
 
 export default function RedeemPage({ searchParams }: PageProps) {
   const tokenParam =
-    typeof searchParams?.token === "string" ? searchParams!.token : undefined;
+    typeof searchParams?.token === "string" ? searchParams.token : undefined;
+  const codeParam =
+    typeof searchParams?.code === "string"
+      ? searchParams.code.toUpperCase()
+      : undefined;
   let content: React.ReactNode;
 
-  if (!tokenParam) {
-    content = (
-      <ErrorBox
-        title="Missing token"
-        body="Provide a valid redeem token in the URL."
-      />
-    );
-  } else {
+  if (tokenParam) {
     const v = verifyToken(tokenParam);
     if (!v.ok) {
       let msg = "Invalid or expired token.";
@@ -50,6 +47,29 @@ export default function RedeemPage({ searchParams }: PageProps) {
             />
           );
         }
+      }
+    }
+  } else if (codeParam) {
+    // Demo fallback: allow direct code redemption when token is unavailable
+    const existing = getCard(codeParam);
+    if (!existing) {
+      content = <ErrorBox title="Not found" body="Gift card does not exist." />;
+    } else {
+      const res = redeemCard(codeParam);
+      if (!res.ok) {
+        const msg =
+          res.reason === "already_redeemed"
+            ? "This gift card was already redeemed."
+            : "Redeem failed.";
+        content = <ErrorBox title="Cannot redeem" body={msg} />;
+      } else {
+        content = (
+          <SuccessBox
+            title="Redeemed successfully"
+            body="Your gift card balance is now 0."
+            code={res.card!.code}
+          />
+        );
       }
     }
   }

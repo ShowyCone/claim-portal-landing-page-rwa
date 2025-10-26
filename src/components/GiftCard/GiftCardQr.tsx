@@ -1,17 +1,17 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Image from "next/image"
-import { motion } from "framer-motion"
-import { SparkleEffect } from "./SparkleEffect"
+import { useState } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { SparkleEffect } from "./SparkleEffect";
 
 interface GiftCardQrProps {
-  amount: number
-  code: string
+  amount: number;
+  code: string;
 }
 
 export function GiftCardQr({ amount, code }: GiftCardQrProps) {
-  const [isFlipped, setIsFlipped] = useState(false)
+  const [isFlipped, setIsFlipped] = useState(false);
 
   return (
     <div className="w-full max-w-sm mx-auto">
@@ -55,7 +55,13 @@ export function GiftCardQr({ amount, code }: GiftCardQrProps) {
               {/* Header */}
               <div className="w-full flex justify-between items-start mb-4">
                 <div className="flex items-center gap-2">
-                  <Image src="/images/rwa-logo.png" alt="RWA Logo" width={24} height={24} className="w-6 h-6" />
+                  <Image
+                    src="/images/rwa-logo.png"
+                    alt="RWA Logo"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6"
+                  />
                   <span className="font-bold text-lg">RWA</span>
                 </div>
                 <div className="text-right">
@@ -74,7 +80,9 @@ export function GiftCardQr({ amount, code }: GiftCardQrProps) {
                 <h3 className="font-bold text-sm">Scan to Redeem</h3>
                 <div className="bg-white p-4 rounded-lg border-2 border-gray-300">
                   <Image
-                    src={`/api/giftcard/qr.png?code=${encodeURIComponent(code)}`}
+                    src={`/api/giftcard/qr.png?code=${encodeURIComponent(
+                      code
+                    )}`}
                     alt="Gift card QR code"
                     width={256}
                     height={256}
@@ -82,7 +90,9 @@ export function GiftCardQr({ amount, code }: GiftCardQrProps) {
                     className="w-48 h-48"
                   />
                 </div>
-                <p className="text-gray-600 text-xs text-center font-semibold">Visit www.rwa.inc/claim</p>
+                <p className="text-gray-600 text-xs text-center font-semibold">
+                  Visit https://claim-portal-landing-page-rwa.vercel.app
+                </p>
               </div>
 
               {/* Instructions */}
@@ -90,15 +100,18 @@ export function GiftCardQr({ amount, code }: GiftCardQrProps) {
                 <h4 className="font-bold mb-2">How to Redeem</h4>
                 <ol className="text-gray-700 text-[10px] space-y-1">
                   <li>1. Scan QR code with your mobile device</li>
-                  <li>2. Visit www.rwa.inc/claim</li>
-                  <li>3. Follow the instructions to claim your $RWAINC</li>
+                  <li>2. Your tokens will be redeemed automatically</li>
                 </ol>
               </div>
 
               {/* Footer */}
               <div className="text-center border-t border-gray-300 pt-3 w-full">
-                <p className="text-gray-700 text-xs font-semibold">No value until activated</p>
-                <p className="text-gray-600 text-xs mt-1">Receive $RWAINC directly to your wallet</p>
+                <p className="text-gray-700 text-xs font-semibold">
+                  No value until activated
+                </p>
+                <p className="text-gray-600 text-xs mt-1">
+                  Receive $RWAINC directly to your wallet
+                </p>
               </div>
             </div>
           </motion.div>
@@ -110,6 +123,5 @@ export function GiftCardQr({ amount, code }: GiftCardQrProps) {
         <p className="animate-pulse">Click to flip card</p>
       </div>
     </div>
-  )
+  );
 }
-

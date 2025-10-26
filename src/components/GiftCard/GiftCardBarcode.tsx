@@ -1,17 +1,16 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Image from "next/image"
-import { motion } from "framer-motion"
-import { SparkleEffect } from "./SparkleEffect"
+import { useState } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { SparkleEffect } from "./SparkleEffect";
 
 interface GiftCardBarcodeProps {
-  amount: string
-  code: string
+  code: string;
 }
 
-export function GiftCardBarcode({ amount, code }: GiftCardBarcodeProps) {
-  const [isFlipped, setIsFlipped] = useState(false)
+export function GiftCardBarcode({ code }: GiftCardBarcodeProps) {
+  const [isFlipped, setIsFlipped] = useState(false);
 
   return (
     <div className="w-full max-w-sm mx-auto">
@@ -55,7 +54,13 @@ export function GiftCardBarcode({ amount, code }: GiftCardBarcodeProps) {
               {/* Header with logo and barcode */}
               <div className="flex justify-between items-start mb-4">
                 <div className="flex items-center gap-2">
-                  <Image src="/images/rwa-logo.png" alt="RWA Logo" width={24} height={24} className="w-6 h-6" />
+                  <Image
+                    src="/images/rwa-logo.png"
+                    alt="RWA Logo"
+                    width={24}
+                    height={24}
+                    className="w-6 h-6"
+                  />
                   <span className="font-bold text-lg">RWA</span>
                 </div>
                 <div className="flex flex-col items-end gap-1">
@@ -72,15 +77,21 @@ export function GiftCardBarcode({ amount, code }: GiftCardBarcodeProps) {
               <div className="mb-2 text-xs leading-tight">
                 <h4 className="font-bold mb-2">Terms & Conditions</h4>
                 <p className="text-gray-700 text-[8px] leading-relaxed">
-                  This gift card is issued by RWA Global Inc. and may only be redeemed at www.rwa.inc/claim or other
-                  authorized RWA platforms. The card has no fees and does not expire. It is non-refundable,
-                  non-transferable, and cannot be reloaded, resold, or redeemed for cash or credit except where required
-                  by law. Treat this card like cash; RWA Global Inc. is not responsible for lost, stolen, or damaged
-                  cards, or for unauthorized use. Purchase or use of this card does not create a customer or investor
-                  relationship with RWA Global Inc. The balance of this card can only be claim in our portal to receive
-                  the balance worth in Crypto. or its affiliates, and may not be used for unlawful purposes or in
-                  violation of the platform's Terms of Service. RWA Global Inc. reserves the right to suspend or cancel
-                  cards if obtained fraudulently or used in violation of applicable laws.
+                  This gift card is issued by RWA Global Inc. and may only be
+                  redeemed at www.rwa.inc/claim or other authorized RWA
+                  platforms. The card has no fees and does not expire. It is
+                  non-refundable, non-transferable, and cannot be reloaded,
+                  resold, or redeemed for cash or credit except where required
+                  by law. Treat this card like cash; RWA Global Inc. is not
+                  responsible for lost, stolen, or damaged cards, or for
+                  unauthorized use. Purchase or use of this card does not create
+                  a customer or investor relationship with RWA Global Inc. The
+                  balance of this card can only be claim in our portal to
+                  receive the balance worth in Crypto. or its affiliates, and
+                  may not be used for unlawful purposes or in violation of the
+                  platform&apos;s Terms of Service. RWA Global Inc. reserves the
+                  right to suspend or cancel cards if obtained fraudulently or
+                  used in violation of applicable laws.
                 </p>
               </div>
 
@@ -88,20 +99,25 @@ export function GiftCardBarcode({ amount, code }: GiftCardBarcodeProps) {
               <div className=" text-xs">
                 <h4 className="font-bold mb-2">How to Redeem</h4>
                 <ol className="text-gray-700 text-[8px] space-y-1 list-decimal list-inside">
-                  <li>Visit www.rwa.inc/claim</li>
+                  <li>
+                    Visit https://claim-portal-landing-page-rwa.vercel.app
+                  </li>
                   <li>Click on redeem a code</li>
                   <li>
-                    Enter your code on the back of you RWA Global Inc Card and follow the instructions to submit your
-                    code
+                    Enter your code on the back of you RWA Global Inc Card and
+                    follow the instructions to submit your code
                   </li>
-                  <li>Your balance will be available in your wallet base immediately</li>
+                  <li>
+                    Your balance will be available in your wallet base
+                    immediately
+                  </li>
                 </ol>
               </div>
 
               {/* Important notice */}
               <div className=" rounded text-[9px] font-bold mb-4 text-gray-900">
-                YOUR ADDRESS WALLET NEED TO BE IN BASE CHAIN FOR $RWATOKEN CONFIRM IN WWW.RWA.INC FOR MORE INFORMATION
-                TO AVOID LOSSES
+                YOUR ADDRESS WALLET NEED TO BE IN BASE CHAIN FOR $RWATOKEN
+                CONFIRM IN WWW.RWA.INC FOR MORE INFORMATION TO AVOID LOSSES
               </div>
 
               {/* Scratch section */}
@@ -110,21 +126,31 @@ export function GiftCardBarcode({ amount, code }: GiftCardBarcodeProps) {
                   SCRATCH YOUR CODE
                 </div>
                 <div className="flex items-center gap-2">
-                  <Image src="/images/rwa-logo.png" alt="RWA" width={16} height={16} className="w-4 h-4" />
+                  <Image
+                    src="/images/rwa-logo.png"
+                    alt="RWA"
+                    width={16}
+                    height={16}
+                    className="w-4 h-4"
+                  />
                   <span className="text-xs font-bold">RWA POWERED</span>
                 </div>
               </div>
 
               <div className="flex flex-col items-center gap-2 mb-4">
                 <Image
-                  src={`/api/giftcard/barcode.png?code=${encodeURIComponent(code)}`}
+                  src={`/api/giftcard/barcode.png?code=${encodeURIComponent(
+                    code
+                  )}`}
                   alt="Gift card barcode"
                   width={512}
                   height={160}
                   unoptimized
                   className="bg-white rounded w-full max-w-xs h-auto"
                 />
-                <div className="text-xs font-mono text-center text-gray-600">1244798246312396846821547934889</div>
+                <div className="text-xs font-mono text-center text-gray-600">
+                  1244798246312396846821547934889
+                </div>
               </div>
 
               {/* Reference codes */}
@@ -142,6 +168,5 @@ export function GiftCardBarcode({ amount, code }: GiftCardBarcodeProps) {
         <p className="animate-pulse">Click to flip card</p>
       </div>
     </div>
-  )
+  );
 }
-
