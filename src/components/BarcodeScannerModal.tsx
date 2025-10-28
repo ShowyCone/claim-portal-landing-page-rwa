@@ -67,16 +67,16 @@ export default function BarcodeScannerModal() {
     <div className='w-full flex flex-col items-center'>
       <motion.button
         onClick={() => setOpen(true)}
-        className='bg-[#0055D6] text-3xl sm:text-4xl font-bold text-white px-6 py-3 rounded-full inline-flex items-center space-x-3 hover:shadow-2xl transition-all duration-300 cursor-pointer group relative overflow-hidden'
+        className='bg-gradient-to-r from-[#3EF2D0] to-[#00B894] text-2xl sm:text-3xl font-bold text-[#020664] px-8 py-4 rounded-full inline-flex items-center space-x-4 hover:shadow-2xl transition-all duration-300 cursor-pointer group relative overflow-hidden border border-white/20'
         aria-haspopup='dialog'
         aria-expanded={open}
         aria-controls='barcode-scanner-modal'
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
-        <div className='absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out' />
+        <div className='absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out' />
 
-        <IoScanOutline className='w-8 h-8 sm:w-10 sm:h-10' />
+        <IoScanOutline className='w-7 h-7 sm:w-8 sm:h-8' />
         <span>Scan Gift Card</span>
       </motion.button>
 
