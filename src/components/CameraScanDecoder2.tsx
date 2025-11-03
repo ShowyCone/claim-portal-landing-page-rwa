@@ -9,8 +9,10 @@ type Props = {
   onSuccess?: () => void;
 };
 
+type UiError = { message: string; code?: string } | null;
+
 export default function CameraScanDecoder2({ onSuccess }: Props) {
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<UiError>(null);
   const [busy, setBusy] = useState(false);
   const [stage, setStage] = useState<
     "idle" | "uploading" | "decoding" | "done"
@@ -79,22 +81,32 @@ export default function CameraScanDecoder2({ onSuccess }: Props) {
                 if (data && data.filePath) {
                   resolve(data.filePath);
                 } else {
-                  reject(
-                    new Error("Upload succeeded but no filePath returned")
-                  );
+                  reject({
+                    message: "Upload succeeded but no filePath returned",
+                  });
                 }
               } else {
-                const bodyText =
-                  typeof xhr.response === "string"
-                    ? xhr.response
-                    : JSON.stringify(xhr.response);
-                reject(
-                  new Error(
-                    `Upload failed (${statusCode}): ${
-                      bodyText || "No response body"
-                    }`
-                  )
-                );
+                // Try to extract structured error from API
+                try {
+                  const resp = xhr.response as unknown as
+                    | { error?: { code?: string; message?: string } }
+                    | string;
+                  if (
+                    resp &&
+                    typeof resp === "object" &&
+                    "error" in resp &&
+                    resp.error
+                  ) {
+                    const code = resp.error.code;
+                    const message =
+                      resp.error.message || `Upload failed (${statusCode})`;
+                    reject({ code, message });
+                  } else {
+                    reject({ message: `Upload failed (${statusCode})` });
+                  }
+                } catch {
+                  reject({ message: `Upload failed (${statusCode})` });
+                }
               }
             }
           };
@@ -112,8 +124,21 @@ export default function CameraScanDecoder2({ onSuccess }: Props) {
       if (IN_MEMORY) URL.revokeObjectURL(imageUrl);
       redirectToRedeem(text);
     } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : String(e);
-      setError(msg);
+      let uiErr: UiError = null;
+      if (
+        e &&
+        typeof e === "object" &&
+        "message" in (e as Record<string, unknown>)
+      ) {
+        const anyE = e as { message?: string; code?: string };
+        uiErr = {
+          message: anyE.message || "Something went wrong",
+          code: anyE.code,
+        };
+      } else {
+        uiErr = { message: e ? String(e) : "Something went wrong" };
+      }
+      setError(uiErr);
       setStage("idle");
       setBusy(false);
     }
@@ -181,7 +206,14 @@ export default function CameraScanDecoder2({ onSuccess }: Props) {
 
         {error && (
           <div className="mt-3 p-3 rounded-md border border-red-200 bg-red-50 text-red-700 text-sm">
-            <div className="font-medium">{error}</div>
+            <div className="font-medium flex items-center gap-2">
+              <span>{error.message}</span>
+              {error.code && (
+                <span className="inline-flex items-center rounded bg-red-100 text-red-700 px-1.5 py-0.5 text-[10px] font-mono tracking-wide">
+                  {error.code}
+                </span>
+              )}
+            </div>
             <ul className="mt-2 list-disc pl-5 text-xs text-red-800/90">
               <li>Check your internet connection and try again.</li>
               <li>Ensure the image is clear, with good lighting and focus.</li>
