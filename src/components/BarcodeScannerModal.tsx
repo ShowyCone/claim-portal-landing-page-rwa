@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import { IoClose, IoScanOutline } from "react-icons/io5";
-import CameraScanDecoder from "./CameraScanDecoder";
+import CameraScanDecoder2 from "./CameraScanDecoder2";
 
 export default function BarcodeScannerModal() {
   const [open, setOpen] = useState(false);
@@ -121,7 +121,7 @@ export default function BarcodeScannerModal() {
                 style={{ maxHeight: "calc(85vh - 140px)" }}
               >
                 {/* New photo-based scanner */}
-                <CameraScanDecoder onSuccess={() => setOpen(false)} />
+                <CameraScanDecoder2 onSuccess={() => setOpen(false)} />
 
                 {/* Manual fallback only */}
                 <div className="mt-6 rounded-xl border p-4 bg-white/60">
