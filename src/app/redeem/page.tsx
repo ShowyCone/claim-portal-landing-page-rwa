@@ -16,17 +16,20 @@ export default function RedeemPage({ searchParams }: PageProps) {
       ? searchParams.code.toUpperCase()
       : undefined
   let content: React.ReactNode
+  let isError = false
 
   if (tokenParam) {
     const v = verifyToken(tokenParam)
     if (!v.ok) {
       let msg = 'Invalid or expired token.'
       if (v.reason === 'expired') msg = 'This redeem link has expired.'
+      isError = true
       content = <ErrorBox title='Cannot redeem' body={msg} />
     } else {
       const code = v.payload.c
       const existing = getCard(code)
       if (!existing) {
+        isError = true
         content = (
           <ErrorBox title='Not found' body='Gift card does not exist.' />
         )
@@ -37,6 +40,7 @@ export default function RedeemPage({ searchParams }: PageProps) {
             res.reason === 'already_redeemed'
               ? 'This gift card was already redeemed.'
               : 'Redeem failed.'
+          isError = true
           content = <ErrorBox title='Cannot redeem' body={msg} />
         } else {
           content = (
@@ -53,6 +57,7 @@ export default function RedeemPage({ searchParams }: PageProps) {
     // Demo fallback: allow direct code redemption when token is unavailable
     const existing = getCard(codeParam)
     if (!existing) {
+      isError = true
       content = <ErrorBox title='Not found' body='Gift card does not exist.' />
     } else {
       const res = redeemCard(codeParam)
@@ -61,6 +66,7 @@ export default function RedeemPage({ searchParams }: PageProps) {
           res.reason === 'already_redeemed'
             ? 'This gift card was already redeemed.'
             : 'Redeem failed.'
+        isError = true
         content = <ErrorBox title='Cannot redeem' body={msg} />
       } else {
         content = (
@@ -75,10 +81,26 @@ export default function RedeemPage({ searchParams }: PageProps) {
   }
 
   return (
-    <main className='min-h-screen flex flex-col items-center justify-center p-6 bg-[#EFEFEF] relative overflow-hidden'>
+    <main
+      className={`min-h-screen flex flex-col items-center justify-center p-6 ${
+        isError ? 'bg-red-50' : 'bg-[#EFEFEF]'
+      } relative overflow-hidden`}
+    >
+      <div className='min-h-screen w-full absolute top-0 left-0 flex items-center justify-center'>
+        {/* Radial Gradient Background from Bottom */}
+        <div
+          className='absolute inset-0 z-0'
+          style={{
+            background: isError
+              ? 'radial-gradient(125% 125% at 50% 90%, #fff 40%, #ef4444 100%)'
+              : 'radial-gradient(125% 125% at 50% 90%, #fff 40%, #0055D6 100%)',
+          }}
+        />
+        {/* Your Content/Components */}
+      </div>
       <div className='relative z-10'>
         {content}
-        <div className='mt-8 text-center'>
+        <div className='mt-8 flex justify-between gap-4'>
           <Link
             href='/giftcard'
             className='inline-flex items-center text-sm text-[#020664] hover:text-[#0055D6] transition-colors duration-300 font-medium'
@@ -137,21 +159,11 @@ function ErrorBox({ title, body }: { title: string; body: string }) {
       <div className='relative z-10'>
         {/* Error icon */}
         <div className='mb-4 flex justify-center items-center'>
-          <div className='w-12 h-12 bg-gradient-to-br from-red-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg'>
-            <svg
-              className='w-6 h-6 text-white'
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth={2}
-                d='M6 18L18 6M6 6l12 12'
-              />
-            </svg>
-          </div>
+          <img
+            className='w-36 h-36'
+            src='/access-denied.svg'
+            alt='Access denied'
+          />
         </div>
 
         <h1 className='text-2xl font-bold mb-3 bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent'>
@@ -185,21 +197,11 @@ function SuccessBox({
       <div className='relative z-10'>
         {/* Success icon */}
         <div className='mb-4 flex justify-center items-center'>
-          <div className='w-12 h-12 bg-gradient-to-br from-[#3EF2D0] to-[#0055D6] rounded-full flex items-center justify-center shadow-lg'>
-            <svg
-              className='w-6 h-6 text-white'
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth={2}
-                d='M5 13l4 4L19 7'
-              />
-            </svg>
-          </div>
+          <img
+            className='w-36 h-36'
+            src='/order-confirmed.svg'
+            alt='Order confirmed'
+          />
         </div>
 
         <h1 className='text-2xl font-bold mb-3 bg-gradient-to-r from-[#020664] to-[#0055D6] bg-clip-text text-transparent'>
