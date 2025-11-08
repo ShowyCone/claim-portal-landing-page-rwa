@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FaPlus, FaTimes, FaCommentDots } from 'react-icons/fa'
 import { IoArrowUpOutline } from 'react-icons/io5'
@@ -8,39 +8,159 @@ import Button from './Button'
 interface FAQItem {
   id: string
   question: string
-  answer: string
+  answer: ReactNode
 }
 
 const faqData: FAQItem[] = [
   {
     id: '1',
     question: 'What is the Claim Portal?',
-    answer:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sed justo in nulla tincidunt iaculis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.',
+    answer: (
+      <>
+        <p>
+          The Claim Portal is RWA Inc.’s secure online platform where customers can redeem both Bitcoin Gift Cards and RWA Inc. Gift Cards.
+        </p>
+        <p>
+          It bridges the gap between physical cards and digital assets — allowing anyone to turn cash into real digital value in seconds.
+        </p>
+      </>
+    ),
   },
   {
     id: '2',
     question: 'How do I redeem my card?',
-    answer:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sed justo in nulla tincidunt iaculis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.',
+    answer: (
+      <>
+        <ol className='list-decimal pl-5 space-y-1'>
+          <li>
+            Visit the Claim Portal website (<a className='text-[#0055D6] underline' href='https://claim.rwa.inc' target='_blank' rel='noreferrer'>claim.rwa.inc</a>).
+          </li>
+          <li>Enter your 16-digit code or scan the QR code on your card.</li>
+          <li>Connect your digital wallet (such as MetaMask or WalletConnect).</li>
+        </ol>
+        <p className='mt-3'>
+          If you have a Bitcoin Gift Card, you’ll receive Bitcoin instantly.
+        </p>
+        <p>
+          If you have an RWA Gift Card, you’ll receive $RWAINC tokens.
+        </p>
+        <p>No complex steps — it’s as simple as topping up a mobile card.</p>
+      </>
+    ),
   },
   {
     id: '3',
     question: 'What wallets are supported?',
-    answer:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sed justo in nulla tincidunt iaculis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.',
+    answer: (
+      <>
+        <p>You can use any major Web3 wallet:</p>
+        <ul className='list-disc pl-5 space-y-1'>
+          <li>MetaMask</li>
+          <li>WalletConnect (for mobile wallets)</li>
+          <li>Trust Wallet</li>
+        </ul>
+        <p className='mt-3'>
+          For Bitcoin claims, standard Bitcoin addresses are supported through our integrated API.
+        </p>
+      </>
+    ),
   },
   {
     id: '4',
     question: 'Is my redemption secure?',
-    answer:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sed justo in nulla tincidunt iaculis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.',
+    answer: (
+      <>
+        <p>Yes — security is built-in at every step:</p>
+        <ul className='list-disc pl-5 space-y-1'>
+          <li>
+            <strong>Best-in-class encryption:</strong> All claim codes are protected using Argon2 hashing, and every redemption is verified on-chain.
+          </li>
+          <li>
+            <strong>Fraud prevention:</strong> Once a code is redeemed, it cannot be reused.
+          </li>
+          <li>
+            <strong>Data privacy:</strong> No sensitive personal information or banking details are required.
+          </li>
+          <li>
+            <strong>Audit trail:</strong> Every redemption is logged securely for transparency.
+          </li>
+        </ul>
+      </>
+    ),
   },
   {
     id: '5',
     question: 'Can I use it without a bank account?',
-    answer:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sed justo in nulla tincidunt iaculis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.',
+    answer: (
+      <>
+        <p>
+          Absolutely. The Claim Portal is designed for financial inclusion — buy a card with cash at participating retailers and redeem it directly to your crypto wallet without needing a bank account or credit card.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: '6',
+    question: 'What’s the difference between the Bitcoin Card and the RWA Inc. Card?',
+    answer: (
+      <>
+        <ul className='list-disc pl-5 space-y-1'>
+          <li>
+            <strong>Bitcoin Gift Card:</strong> Connects users to the world’s most trusted digital currency — perfect for beginners who want instant, simple Bitcoin ownership.
+          </li>
+          <li>
+            <strong>RWA Inc. Gift Card:</strong> Introduces users to tokenized real‑world assets ($RWAINC), representing tangible value and long‑term growth potential.
+          </li>
+        </ul>
+        <p className='mt-3'>
+          Both cards share the same redemption process through the Claim Portal, letting you choose how to enter the digital economy.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: '7',
+    question: 'Can retailers sell both cards?',
+    answer: (
+      <>
+        <p>
+          Yes. Most retail partners offer the Dual Gift Card Display, allowing customers to buy either Bitcoin or RWA cards from the same counter. This setup maximizes shelf visibility, drives cross‑sales, and helps retailers tap into both mainstream and emerging digital demand.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: '8',
+    question: 'How fast will I receive my tokens?',
+    answer: (
+      <>
+        <p>
+          Redemption is instant. Once your code is entered and your wallet is connected, your tokens (Bitcoin or $RWAINC) are transferred within seconds — no waiting, no approval process.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: '9',
+    question: 'What if I lose my card or my code doesn’t work?',
+    answer: (
+      <>
+        <p>
+          If your code hasn’t been redeemed, our support team can help reissue or verify it. However, once a code is successfully redeemed, it’s permanently locked for security.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: '10',
+    question: 'Where can I buy these cards?',
+    answer: (
+      <>
+        <p>
+          Our cards are available through authorized retailers, supermarkets, kiosks, and telco partners.
+        </p>
+      </>
+    ),
   },
 ]
 
@@ -153,9 +273,9 @@ export default function FAQSection() {
                     >
                       <div className='px-6 pb-6 pt-0'>
                         <div className='border-t border-gray-100 pt-4'>
-                          <p className='text-gray-600 leading-relaxed'>
+                          <div className='text-gray-600 leading-relaxed space-y-3'>
                             {faq.answer}
-                          </p>
+                          </div>
                         </div>
                       </div>
                     </motion.div>
