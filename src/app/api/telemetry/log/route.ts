@@ -21,15 +21,27 @@ export async function POST(req: NextRequest) {
       .json()
       .catch(() => ({}))) as Partial<ScanTelemetryLog> & { type?: string };
     if (body.type !== "scan") {
+      const status = 400;
       return NextResponse.json(
-        { ok: false, error: "invalid_type" },
-        { status: 400 }
+        {
+          ok: false,
+          statusCode: status,
+          error: "invalid_type",
+          cause: "type_mismatch",
+        },
+        { status }
       );
     }
     if (!body.action || !body.level) {
+      const status = 400;
       return NextResponse.json(
-        { ok: false, error: "missing_fields" },
-        { status: 400 }
+        {
+          ok: false,
+          statusCode: status,
+          error: "missing_fields",
+          cause: !body.action ? "missing_action" : "missing_level",
+        },
+        { status }
       );
     }
     const entry: ScanTelemetryLog = {
@@ -52,11 +64,29 @@ export async function POST(req: NextRequest) {
       requestId,
     };
     addScanLog(entry);
-    return NextResponse.json({ ok: true }, { headers: corsHeaders() });
-  } catch {
     return NextResponse.json(
-      { ok: false, error: "log_failed" },
-      { status: 500, headers: corsHeaders() }
+      {
+        ok: true,
+        statusCode: 200,
+        stored: true,
+        action: entry.action,
+        level: entry.level,
+        hint: entry.hint ?? null,
+        cause: entry.cause ?? null,
+        ts: entry.ts,
+      },
+      { headers: corsHeaders() }
+    );
+  } catch {
+    const status = 500;
+    return NextResponse.json(
+      {
+        ok: false,
+        statusCode: status,
+        error: "log_failed",
+        cause: "exception",
+      },
+      { status, headers: corsHeaders() }
     );
   }
 }
@@ -69,7 +99,7 @@ export async function GET(req: NextRequest) {
   );
   const data = getRecentScanLogs(n);
   return NextResponse.json(
-    { ok: true, logs: data },
+    { ok: true, statusCode: 200, logs: data },
     { headers: corsHeaders() }
   );
 }
