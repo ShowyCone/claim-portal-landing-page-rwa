@@ -120,8 +120,17 @@ export default function BarcodeScannerModal() {
                 className="flex-1 overflow-y-auto p-5"
                 style={{ maxHeight: "calc(85vh - 140px)" }}
               >
-                {/* Scanbot SDK-based scanner */}
-                <ScanbotScanner />
+                <div className="flex flex-col justify-center items-center gap-2 w-full">
+                  <span>Use your camera</span>
+
+                  {/* Scanbot SDK-based scanner */}
+                  <ScanbotScanner
+                    onScan={gotoRedeemFrom}
+                    onOpen={() => setOpen(false)}
+                  />
+
+                  <span className="text-md text-neutral-500">Or</span>
+                </div>
 
                 {/* Manual fallback only */}
                 <div className="mt-6 rounded-xl border p-4 bg-white/60">

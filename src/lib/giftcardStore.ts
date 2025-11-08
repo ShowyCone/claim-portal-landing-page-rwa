@@ -47,10 +47,19 @@ export function getCard(code: string): GiftCard | undefined {
 export function redeemCard(
   code: string,
   amount?: number
-): { ok: boolean; reason?: string; card?: GiftCard } {
+): {
+  ok: boolean;
+  reason?: string;
+  card?: GiftCard;
+  redeemedAmount?: number;
+  previousBalance?: number;
+  remainingBalance?: number;
+} {
   const c = getCard(code);
   if (!c) return { ok: false, reason: "not_found" };
   if (c.status === "redeemed") return { ok: false, reason: "already_redeemed" };
+
+  const prevBalance = c.balance;
 
   if (amount === undefined) {
     // Consume entirely for demo
@@ -58,7 +67,13 @@ export function redeemCard(
     c.balance = 0;
     c.redeemedAt = Date.now();
     store.set(c.code, c);
-    return { ok: true, card: c };
+    return {
+      ok: true,
+      card: c,
+      redeemedAmount: prevBalance,
+      previousBalance: prevBalance,
+      remainingBalance: c.balance,
+    };
   }
 
   if (amount <= 0) return { ok: false, reason: "invalid_amount" };
@@ -70,9 +85,15 @@ export function redeemCard(
     c.redeemedAt = Date.now();
   }
   store.set(c.code, c);
-  return { ok: true, card: c };
+  return {
+    ok: true,
+    card: c,
+    redeemedAmount: amount,
+    previousBalance: prevBalance,
+    remainingBalance: c.balance,
+  };
 }
 
-// Seed one demo card on module load for convenience
-const seeded = issueCard({ code: "GFT-2025-AB12", balance: 50 });
+// Seed one demo card on module load for convenience (full 100 balance per mockup requirement)
+const seeded = issueCard({ code: "GFT-2025-AB12", balance: 100 });
 export const demoGiftCardCode = seeded.code;
