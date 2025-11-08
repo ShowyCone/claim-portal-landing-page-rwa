@@ -19,7 +19,18 @@ export type ScanTelemetryLog = {
     | "upload_error"
     | "zxing_start"
     | "zxing_result"
-    | "zxing_error";
+    | "zxing_error"
+    // Redeem flow (server-instrumented)
+    | "redeem_start"
+    | "redeem_idempotent"
+    | "redeem_rate_limited"
+    | "redeem_invalid_request"
+    | "redeem_not_found"
+    | "redeem_invalid_amount"
+    | "redeem_insufficient_balance"
+    | "redeem_already_redeemed"
+    | "redeem_error"
+    | "redeem_success";
   message?: string;
   cause?: string;
   hint?: string;
