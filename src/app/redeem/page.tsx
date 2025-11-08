@@ -2,6 +2,8 @@ export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import Image from "next/image";
+import { postScanEvent } from "@/lib/telemetry";
+import { maskCode } from "@/lib/telemetry";
 
 type PageProps = {
   searchParams?: { [key: string]: string | string[] | undefined };
@@ -54,6 +56,18 @@ export default async function RedeemPage({ searchParams }: PageProps) {
               : "Redeem failed.";
           isError = true;
           content = <ErrorBox title="Cannot redeem" body={msg} />;
+          // Client-side telemetry reflecting final API response
+          await postScanEvent({
+            level: "warn",
+            action: "redeem_api_error",
+            message: `Redeem-by-token failed: ${reason || "unknown"}`,
+            context: {
+              tokenLength: tokenParam.length,
+              status: resp.status,
+              error: reason || null,
+              idempotencyKey: idemKey,
+            },
+          });
         } else {
           content = (
             <SuccessBox
@@ -64,6 +78,19 @@ export default async function RedeemPage({ searchParams }: PageProps) {
               code={data.card?.code ?? "UNKNOWN"}
             />
           );
+          await postScanEvent({
+            level: "info",
+            action: "redeem_api_success",
+            message: "Redeem-by-token succeeded",
+            context: {
+              tokenLength: tokenParam.length,
+              status: resp.status,
+              idempotencyKey: idemKey,
+              redeemedAmount: data.redeemedAmount,
+              remainingBalance: data.remainingBalance,
+              codeMasked: data.card?.code ? maskCode(data.card.code) : null,
+            },
+          });
         }
       } else if (codeParam) {
         // Mockup: redeem a fixed amount of 100
@@ -93,6 +120,18 @@ export default async function RedeemPage({ searchParams }: PageProps) {
               : "Redeem failed.";
           isError = true;
           content = <ErrorBox title="Cannot redeem" body={msg} />;
+          await postScanEvent({
+            level: "warn",
+            action: "redeem_api_error",
+            message: `Redeem-by-code failed: ${reason || "unknown"}`,
+            context: {
+              codeMasked: maskCode(codeParam),
+              amountRequested: amount,
+              status: resp.status,
+              error: reason || null,
+              idempotencyKey: idemKey,
+            },
+          });
         } else {
           content = (
             <SuccessBox
@@ -103,6 +142,20 @@ export default async function RedeemPage({ searchParams }: PageProps) {
               code={data.card?.code ?? "UNKNOWN"}
             />
           );
+          await postScanEvent({
+            level: "info",
+            action: "redeem_api_success",
+            message: "Redeem-by-code succeeded",
+            context: {
+              codeMasked: data.card?.code ? maskCode(data.card.code) : null,
+              amountRequested: amount,
+              status: resp.status,
+              idempotencyKey: idemKey,
+              redeemedAmount: data.redeemedAmount,
+              remainingBalance: data.remainingBalance,
+              fullRedemption: data.remainingBalance === 0,
+            },
+          });
         }
       }
     } catch (e) {
@@ -114,6 +167,16 @@ export default async function RedeemPage({ searchParams }: PageProps) {
           body="Network error. Please try again."
         />
       );
+      await postScanEvent({
+        level: "error",
+        action: "redeem_api_error",
+        message: "Redeem page network or unexpected error",
+        cause: e instanceof Error ? e.message : String(e),
+        context: {
+          tokenPresent: !!tokenParam,
+          codePresent: !!codeParam,
+        },
+      });
     }
   }
 

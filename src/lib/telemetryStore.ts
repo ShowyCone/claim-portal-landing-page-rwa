@@ -20,6 +20,9 @@ export type ScanTelemetryLog = {
     | "zxing_start"
     | "zxing_result"
     | "zxing_error"
+  // Client-observed redeem API outcomes
+  | "redeem_api_success"
+  | "redeem_api_error"
     // Redeem flow (server-instrumented)
     | "redeem_start"
     | "redeem_idempotent"
