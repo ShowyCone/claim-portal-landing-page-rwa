@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { IoScanOutline } from "react-icons/io5";
 import type ScanbotSDK from "scanbot-web-sdk/ui";
+import { postScanEvent } from "@/lib/telemetry";
 
 export default function ScanbotScanner({
   onOpen,
@@ -12,29 +13,81 @@ export default function ScanbotScanner({
   onOpen?: () => void;
   onScan: (text: string) => void;
 }) {
-  let ScanbotSdk: typeof ScanbotSDK;
+  const sdkRef = useRef<typeof ScanbotSDK | null>(null);
+  const initStart = useRef<number | null>(null);
 
   // initialize the Scanbot Barcode SDK
   useEffect(() => {
-    loadSDK();
+    if (!sdkRef.current) {
+      loadSDK();
+    }
   });
 
   async function loadSDK() {
-    // Use dynamic inline imports to load the SDK, else Next will load it into the server bundle
-    // and attempt to load it before the 'window' object becomes available.
-    // https://nextjs.org/docs/pages/building-your-application/optimizing/lazy-loading
-    ScanbotSdk = (await import("scanbot-web-sdk/ui")).default;
-
-    await ScanbotSdk.initialize({
-      licenseKey: "",
-      enginePath: "wasm/",
-    });
+    try {
+      initStart.current = performance.now();
+      postScanEvent({
+        level: "info",
+        action: "sdk_init_start",
+        message: "Initializing Scanbot SDK",
+      });
+      // Dynamic import to keep it client-side
+      const mod = await import("scanbot-web-sdk/ui");
+      sdkRef.current = mod.default;
+      await sdkRef.current.initialize({
+        licenseKey: "",
+        enginePath: "wasm/",
+      });
+      postScanEvent({
+        level: "info",
+        action: "sdk_init_success",
+        durationMs: initStart.current
+          ? performance.now() - initStart.current
+          : undefined,
+        message: "Scanbot SDK initialized",
+      });
+    } catch (e) {
+      postScanEvent({
+        level: "error",
+        action: "sdk_init_error",
+        cause: e instanceof Error ? e.message : String(e),
+        hint: "Check enginePath and licenseKey configuration.",
+        context: {
+          enginePath: "wasm/",
+        },
+      });
+    }
   }
 
   async function startBarcodeScanner() {
+    postScanEvent({
+      level: "info",
+      action: "scan_started",
+    });
     onOpen?.();
-    const config = new ScanbotSdk.UI.Config.BarcodeScannerScreenConfiguration();
-    const result = await ScanbotSdk.UI.createBarcodeScanner(config);
+    const sdk = sdkRef.current;
+    if (!sdk) {
+      postScanEvent({
+        level: "error",
+        action: "scan_error",
+        cause: "SDK not initialized",
+        hint: "Ensure loadSDK completed before starting a scan.",
+      });
+      return;
+    }
+    const config = new sdk.UI.Config.BarcodeScannerScreenConfiguration();
+    let result;
+    try {
+      result = await sdk.UI.createBarcodeScanner(config);
+    } catch (e) {
+      postScanEvent({
+        level: "error",
+        action: "scan_error",
+        cause: e instanceof Error ? e.message : String(e),
+        hint: "Verify camera permissions and browser compatibility.",
+      });
+      return;
+    }
 
     config.palette.sbColorPrimary = "#1E90FF";
     config.palette.sbColorSecondary = "#87CEEB";
@@ -46,7 +99,21 @@ export default function ScanbotScanner({
     config.actionBar.zoomButton.backgroundColor = "#1E90FF";
 
     if (result && result.items.length > 0) {
-      onScan(result.items[0].barcode.text);
+      const text = result.items[0].barcode.text;
+      postScanEvent({
+        level: "info",
+        action: "scan_result",
+        context: { textLength: text.length },
+        message: "Barcode scanned",
+      });
+      onScan(text);
+    } else {
+      postScanEvent({
+        level: "warn",
+        action: "scan_error",
+        cause: "No items returned",
+        hint: "Ensure barcode is within finder and well-lit.",
+      });
     }
   }
 

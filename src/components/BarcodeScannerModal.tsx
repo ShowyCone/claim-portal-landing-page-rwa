@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import { IoClose, IoScanOutline } from "react-icons/io5";
+import { postScanEvent } from "@/lib/telemetry";
 import ScanbotScanner from "./ScanbotScanner";
 
 export default function BarcodeScannerModal() {
@@ -39,12 +40,31 @@ export default function BarcodeScannerModal() {
       const token = u.searchParams.get("token");
       setOpen(false);
       if (token) {
+        postScanEvent({
+          level: "info",
+          action: "redirect",
+          message: "Redirecting to token URL",
+          context: { tokenLength: token.length },
+        });
         window.location.href = u.toString();
         return;
       }
+      postScanEvent({
+        level: "info",
+        action: "redirect",
+        message: "Redirecting with raw code",
+        context: { valueLength: text.length },
+      });
       window.location.href = `/redeem?code=${encodeURIComponent(text)}`;
     } catch {
       setOpen(false);
+      postScanEvent({
+        level: "warn",
+        action: "redirect",
+        cause: "invalid_url",
+        message: "Input was not a URL; falling back to code",
+        context: { valueLength: text.length },
+      });
       window.location.href = `/redeem?code=${encodeURIComponent(text)}`;
     }
   };
@@ -52,7 +72,14 @@ export default function BarcodeScannerModal() {
   return (
     <div className="w-full flex flex-col items-center">
       <motion.button
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          setOpen(true);
+          postScanEvent({
+            level: "info",
+            action: "modal_open",
+            message: "Scanner modal opened",
+          });
+        }}
         className="bg-gradient-to-r from-[#3EF2D0] to-[#00B894] text-2xl sm:text-3xl font-bold text-[#020664] px-8 py-4 rounded-full inline-flex items-center space-x-4 hover:shadow-2xl transition-all duration-300 cursor-pointer group relative overflow-hidden border border-white/20"
         aria-haspopup="dialog"
         aria-expanded={open}
@@ -83,7 +110,14 @@ export default function BarcodeScannerModal() {
             {/* Backdrop */}
             <div
               className="absolute inset-0 bg-black/50"
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                setOpen(false);
+                postScanEvent({
+                  level: "info",
+                  action: "modal_close",
+                  message: "Scanner modal closed via backdrop",
+                });
+              }}
             />
 
             {/* Modal Content */}
@@ -106,7 +140,14 @@ export default function BarcodeScannerModal() {
                   </div>
 
                   <button
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                      setOpen(false);
+                      postScanEvent({
+                        level: "info",
+                        action: "modal_close",
+                        message: "Scanner modal closed via button",
+                      });
+                    }}
                     className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-600 hover:text-gray-800 transition-colors"
                     aria-label="Close"
                   >
@@ -114,7 +155,6 @@ export default function BarcodeScannerModal() {
                   </button>
                 </div>
               </div>
-
               {/* Content with scrollbar */}
               <div
                 className="flex-1 overflow-y-auto p-5"
@@ -147,13 +187,28 @@ export default function BarcodeScannerModal() {
                     <div className="flex gap-2">
                       <button
                         className="px-3 py-2 rounded bg-[#0055D6] text-white"
-                        onClick={() => gotoRedeemFrom(manual)}
+                        onClick={() => {
+                          postScanEvent({
+                            level: "info",
+                            action: "manual_input",
+                            context: { valueLength: manual.length },
+                            message: "Manual input submit",
+                          });
+                          gotoRedeemFrom(manual);
+                        }}
                       >
                         Go to Redeem
                       </button>
                       <button
                         className="px-3 py-2 rounded border"
-                        onClick={() => setManual("")}
+                        onClick={() => {
+                          setManual("");
+                          postScanEvent({
+                            level: "info",
+                            action: "manual_input",
+                            message: "Manual input cleared",
+                          });
+                        }}
                       >
                         Clear
                       </button>
@@ -166,7 +221,6 @@ export default function BarcodeScannerModal() {
                   </div>
                 </div>
               </div>
-
               {/* Footer */}
               <div className="px-5 py-3 bg-gray-50 border-t border-gray-200 flex-shrink-0">
                 <p className="text-xs text-center text-gray-500">
