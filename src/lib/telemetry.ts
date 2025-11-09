@@ -1,9 +1,4 @@
-import {
-  addScanLog,
-  type ScanTelemetryLog,
-  type TelemetryLevel,
-} from "./telemetryStore";
-import { getClientIp } from "./rateLimit";
+import { type ScanTelemetryLog, type TelemetryLevel } from "./telemetryStore";
 
 export function maskCode(value: string): string {
   return value.replace(/.(?=.{4})/g, (ch) => (/[-\s]/.test(ch) ? ch : "*"));
@@ -32,18 +27,65 @@ export function hintForError(cause?: string): string | undefined {
   return undefined;
 }
 
+// Resolve external telemetry ingest base URL for client/server
+function resolveIngestBase(isServer: boolean): string | undefined {
+  // Browser -> NEXT_PUBLIC_TELEMETRY_URL (or injected global)
+  // Server  -> TELEMETRY_INGEST_URL (fallback to NEXT_PUBLIC_TELEMETRY_URL)
+  const browserInjected =
+    typeof window !== "undefined"
+      ? (window as unknown as { __TELEMETRY_URL__?: string })
+          .__TELEMETRY_URL__ || undefined
+      : undefined;
+  const clientBase = browserInjected || process.env.NEXT_PUBLIC_TELEMETRY_URL;
+  const serverBase =
+    process.env.TELEMETRY_INGEST_URL || process.env.NEXT_PUBLIC_TELEMETRY_URL;
+  const base = isServer ? serverBase : clientBase;
+  if (!base) return undefined;
+  return String(base).replace(/\/+$/, "");
+}
+
+async function sendIngest(body: Record<string, unknown>) {
+  const isServer = typeof window === "undefined";
+  const base = resolveIngestBase(isServer);
+  if (!base) return;
+  try {
+    await fetch(`${base}/api/v1/telemetry/logs`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        ...(process.env.TELEMETRY_TOKEN
+          ? { "X-Telemetry-Token": process.env.TELEMETRY_TOKEN }
+          : {}),
+      },
+      body: JSON.stringify(body),
+      cache: "no-store",
+      keepalive: !isServer,
+    });
+  } catch {
+    // best-effort
+  }
+}
+
+function getClientIpFromRequest(req: Request): string {
+  const xff = req.headers.get("x-forwarded-for");
+  if (xff) return xff.split(",")[0].trim();
+  const xri = req.headers.get("x-real-ip");
+  if (xri) return xri.trim();
+  return "unknown";
+}
+
 export function logScanServer(
   req: Request,
   partial: Omit<ScanTelemetryLog, "type" | "ts"> & { ts?: number }
 ) {
-  const ip = getClientIp(req);
+  const ip = getClientIpFromRequest(req);
   const ua = req.headers.get("user-agent");
   const referer = req.headers.get("referer");
   const requestId =
     req.headers.get("x-request-id") || req.headers.get("cf-ray") || null;
-  addScanLog({
+  const payload = {
     type: "scan",
-    ts: partial.ts ?? Date.now(),
+    ts: partial.ts, // let telemetry service assign if undefined
     ip,
     userAgent: ua,
     referer,
@@ -55,7 +97,8 @@ export function logScanServer(
     hint: partial.hint ?? hintForError(partial.cause),
     durationMs: partial.durationMs,
     context: partial.context,
-  });
+  } as Record<string, unknown>;
+  void sendIngest(payload);
 }
 
 export type ClientScanEvent = {
@@ -69,23 +112,6 @@ export type ClientScanEvent = {
 };
 
 export async function postScanEvent(event: ClientScanEvent) {
-  try {
-    // Use absolute URL when running on the server (RSC/route handlers) where relative fetch may lack a base.
-    const isServer = typeof window === "undefined";
-    const origin = isServer
-      ? process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
-      : "";
-    const url = isServer ? `${origin}/api/telemetry/log` : "/api/telemetry/log";
-
-    await fetch(url, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ type: "scan", ...event }),
-      cache: "no-store",
-      // keepalive helps on the client during unload/redirect; harmless on server though may be ignored.
-      keepalive: !isServer,
-    });
-  } catch {
-    // Best-effort; no throw in client
-  }
+  const payload = { type: "scan", ...event } as Record<string, unknown>;
+  await sendIngest(payload);
 }

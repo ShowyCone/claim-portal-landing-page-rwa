@@ -24,7 +24,8 @@ export default function TelemetryPage() {
     let canceled = false;
     async function bootstrap() {
       try {
-        const res = await fetch("/api/telemetry/log?n=100", {
+        const base = process.env.NEXT_PUBLIC_TELEMETRY_URL || "";
+        const res = await fetch(`${base}/api/v1/telemetry/logs?n=100`, {
           cache: "no-store",
         });
         const data = (await res.json()) as {
@@ -45,7 +46,8 @@ export default function TelemetryPage() {
   }, []);
 
   useEffect(() => {
-    const es = new EventSource("/api/telemetry/stream");
+    const base = process.env.NEXT_PUBLIC_TELEMETRY_URL || "";
+    const es = new EventSource(`${base}/api/v1/telemetry/stream`);
     evRef.current = es;
     es.onopen = () => setConnected(true);
     es.onerror = () => setConnected(false);
