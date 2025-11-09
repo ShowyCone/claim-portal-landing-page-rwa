@@ -70,12 +70,20 @@ export type ClientScanEvent = {
 
 export async function postScanEvent(event: ClientScanEvent) {
   try {
-    await fetch("/api/telemetry/log", {
+    // Use absolute URL when running on the server (RSC/route handlers) where relative fetch may lack a base.
+    const isServer = typeof window === "undefined";
+    const origin = isServer
+      ? process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+      : "";
+    const url = isServer ? `${origin}/api/telemetry/log` : "/api/telemetry/log";
+
+    await fetch(url, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ type: "scan", ...event }),
       cache: "no-store",
-      keepalive: true,
+      // keepalive helps on the client during unload/redirect; harmless on server though may be ignored.
+      keepalive: !isServer,
     });
   } catch {
     // Best-effort; no throw in client
