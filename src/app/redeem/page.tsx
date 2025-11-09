@@ -159,14 +159,6 @@ export default async function RedeemPage({ searchParams }: PageProps) {
         }
       }
     } catch (e) {
-      console.error("Redeem page fetch error", e);
-      isError = true;
-      content = (
-        <ErrorBox
-          title="Cannot redeem"
-          body="Network error. Please try again."
-        />
-      );
       await postScanEvent({
         level: "error",
         action: "redeem_api_error",
@@ -177,6 +169,14 @@ export default async function RedeemPage({ searchParams }: PageProps) {
           codePresent: !!codeParam,
         },
       });
+      console.error("Redeem page fetch error", e);
+      isError = true;
+      content = (
+        <ErrorBox
+          title="Cannot redeem"
+          body="Network error. Please try again."
+        />
+      );
     }
   }
 
