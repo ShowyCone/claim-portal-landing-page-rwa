@@ -60,3 +60,20 @@ Notes:
 - QR/barcode contain a short-lived signed token (HMAC-SHA256) that expires after 15 minutes and is validated server-side.
 - Optional env var: `GIFTCARD_SIGNING_SECRET` to override the demo secret.
 - For production, replace the in-memory store with a database and use short opaque IDs or JWTs with expiry/nonce, rate-limit redemptions, and log audit events.
+
+### Scanner and image upload
+
+The scanner flow uses a camera capture component that can either:
+
+- Decode entirely in the browser from a captured photo (recommended for production), or
+- Upload the captured photo to `/api/camera/upload` and decode from the returned URL (convenient for local/dev only).
+
+Environment flags:
+
+- `NEXT_PUBLIC_DECODE_IN_MEMORY=true` – Force client-only, in-memory decoding using `URL.createObjectURL(file)`. This avoids server filesystem writes and is production-safe, including on serverless hosts.
+- If you prefer the upload route in development, leave this unset and the client will POST to `/api/camera/upload` using XHR with progress.
+
+Upload API notes (dev-only):
+
+- The upload handler saves files to `public/uploads`. Many serverless platforms provide read-only filesystems or ephemeral storage, which can cause ENOENT or missing-file errors after cold starts or across instances. For production, keep `NEXT_PUBLIC_DECODE_IN_MEMORY=true` or switch storage to a durable object store (S3, GCS, Azure Blob) and serve signed URLs.
+- The API returns structured errors: `{ error: { code, message }, debug? }`. The scanner UI renders `message` and `code` to help users troubleshoot.
