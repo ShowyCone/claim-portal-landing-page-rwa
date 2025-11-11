@@ -36,6 +36,11 @@ const TrustedUsersSection = () => {
     },
   ]
 
+  // TrustedUsersSection temporarily hidden from page output.
+  // The original JSX is preserved below and commented out so it can be
+  // re-enabled later when needed.
+
+  /*
   return (
     <section className='bg-white py-12'>
       <div className='max-w-7xl mx-auto px-8 md:px-16'>
@@ -88,6 +93,10 @@ const TrustedUsersSection = () => {
       </div>
     </section>
   )
+  */
+
+  // Placeholder: render nothing while the section is commented out.
+  return null
 }
 
 export default TrustedUsersSection
