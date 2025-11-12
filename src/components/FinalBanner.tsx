@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
-import Image from 'next/image'
-import { IoArrowUpOutline, IoArrowForwardOutline } from 'react-icons/io5'
-import Button from './Button'
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { IoArrowUpOutline, IoArrowForwardOutline } from "react-icons/io5";
+import Button from "./Button";
 
 export default function FinalBanner() {
   const containerVariants = {
@@ -15,7 +15,7 @@ export default function FinalBanner() {
         staggerChildren: 0.2,
       },
     },
-  }
+  };
 
   const textVariants = {
     hidden: { opacity: 0, x: -30 },
@@ -27,7 +27,7 @@ export default function FinalBanner() {
         ease: [0.25, 0.46, 0.45, 0.94] as const,
       },
     },
-  }
+  };
 
   const cardVariants = {
     hidden: { opacity: 0, y: 30, scale: 0.9 },
@@ -40,103 +40,103 @@ export default function FinalBanner() {
         ease: [0.25, 0.46, 0.45, 0.94] as const,
       },
     },
-  }
+  };
 
   const giftCards = [
     {
-      image: '/images/Blue-Gift-Card-50.png',
+      image: "/images/Blue-Gift-Card-50.png",
       rotation: 5,
       delay: 0.2,
       zIndex: 3,
     },
     {
-      image: '/images/Blue-Gift-Card-25.png',
+      image: "/images/Blue-Gift-Card-25.png",
       rotation: 5,
       delay: 0.4,
       zIndex: 2,
     },
     {
-      image: '/images/Blue-Gift-Card-10.png',
+      image: "/images/Blue-Gift-Card-10.png",
       rotation: 5,
       delay: 0.6,
       zIndex: 1,
     },
-  ]
+  ];
 
   return (
     <section
-      className='bg-white py-6 px-5'
+      className="bg-gradient-to-b from-[#0a0a0a] to-[#1a1a1a] py-6 px-5"
       style={{
-        background: 'linear-gradient(180deg, #FFFFFF 80%, #EFEFEF 100%)',
+        background: "linear-gradient(180deg, #0a0a0a 80%, #1a1a1a 100%)",
       }}
     >
-      <div className='relative max-w-6xl mx-auto'>
+      <div className="relative max-w-6xl mx-auto">
         <motion.div
-          className='relative rounded-[40px] overflow-hidden'
+          className="relative rounded-[40px] overflow-hidden"
           style={{
-            background: 'linear-gradient(180deg, #020664 0%, #0055D6 100%)',
-            height: '280px',
+            background: "linear-gradient(180deg, #020664 0%, #0055D6 100%)",
+            height: "280px",
           }}
           variants={containerVariants}
-          initial='hidden'
-          whileInView='visible'
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          <div className='absolute inset-0'>
-            <div className='absolute left-[-60px] top-0 h-full hidden md:block'>
+          <div className="absolute inset-0">
+            <div className="absolute left-[-60px] top-0 h-full hidden md:block">
               <Image
-                src='/images/diamond2.png'
-                alt='Diamond decoration'
+                src="/images/diamond2.png"
+                alt="Diamond decoration"
                 width={200}
                 height={280}
-                className='h-full w-auto object-cover opacity-75'
+                className="h-full w-auto object-cover opacity-75"
                 style={{ opacity: 0.76 }}
               />
             </div>
 
-            <div className='absolute bottom-0 left-[12%] h-full hidden md:block'>
+            <div className="absolute bottom-0 left-[12%] h-full hidden md:block">
               <Image
-                src='/images/dubai.png'
-                alt='Dubai decoration'
+                src="/images/dubai.png"
+                alt="Dubai decoration"
                 width={280}
                 height={280}
-                className='h-full w-auto object-cover object-bottom'
+                className="h-full w-auto object-cover object-bottom"
               />
             </div>
           </div>
 
-          <div className='relative z-10 h-full flex flex-col md:flex-row justify-center items-center md:justify-between p-6 md:p-8'>
+          <div className="relative z-10 h-full flex flex-col md:flex-row justify-center items-center md:justify-between p-6 md:p-8">
             <motion.div
-              className='flex flex-col justify-center items-center md:items-start text-center md:text-left md:mb-0 md:ml-32 w-fit gap-3'
+              className="flex flex-col justify-center items-center md:items-start text-center md:text-left md:mb-0 md:ml-32 w-fit gap-3"
               variants={textVariants}
             >
               <h2
-                className='text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight'
+                className="text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight"
                 style={{
                   background:
-                    'linear-gradient(90deg, #FFFFFF 0%, #3EF2D0 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
+                    "linear-gradient(90deg, #FFFFFF 0%, #3EF2D0 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
                 }}
               >
                 Ready to Claim Your $RWAINC?
               </h2>
 
-              <div className='flex flex-col gap-3 items-center self-center'>
-                <div className='flex flex-col gap-3 items-center w-full'>
+              <div className="flex flex-col gap-3 items-center self-center">
+                <div className="flex flex-col gap-3 items-center w-full">
                   <Button
-                    label='Buy your Gift Card Now'
-                    icon={<IoArrowUpOutline className='text-sm' />}
+                    label="Buy your Gift Card Now"
+                    icon={<IoArrowUpOutline className="text-sm" />}
                     onClick={() => {}}
-                    className='text-sm w-fit'
+                    className="text-sm w-fit"
                   />
                   <Button
-                    label='Partner With Us'
-                    icon={<IoArrowForwardOutline className='text-sm' />}
+                    label="Partner With Us"
+                    icon={<IoArrowForwardOutline className="text-sm" />}
                     onClick={() => {}}
-                    variant='inverted'
-                    className='text-sm w-fit'
+                    variant="inverted"
+                    className="text-sm w-fit"
                   />
                 </div>
               </div>
@@ -145,13 +145,13 @@ export default function FinalBanner() {
         </motion.div>
 
         <div
-          className='hidden md:block absolute top-0 right-0 h-[280px] pointer-events-none'
-          style={{ width: '500px' }}
+          className="hidden md:block absolute top-0 right-0 h-[280px] pointer-events-none"
+          style={{ width: "500px" }}
         >
           {giftCards.map((card, index) => (
             <motion.div
               key={index}
-              className='absolute pointer-events-auto'
+              className="absolute pointer-events-auto"
               style={{
                 zIndex: card.zIndex,
                 left: `${180 + index * 40}px`,
@@ -177,17 +177,17 @@ export default function FinalBanner() {
                   },
                 },
               }}
-              initial='hidden'
-              whileInView='visible'
+              initial="hidden"
+              whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
               whileHover={{
                 scale: 1.12,
                 y: -20,
                 rotate: 0,
                 zIndex: 10,
-                boxShadow: '0 12px 32px 0 rgba(0,0,0,0.25)',
+                boxShadow: "0 12px 32px 0 rgba(0,0,0,0.25)",
                 transition: {
-                  type: 'spring',
+                  type: "spring",
                   stiffness: 350,
                   damping: 22,
                 },
@@ -199,12 +199,12 @@ export default function FinalBanner() {
                 width={280}
                 height={420}
                 unoptimized
-                className='w-auto h-auto max-h-[380px] drop-shadow-2xl'
+                className="w-auto h-auto max-h-[380px] drop-shadow-2xl"
               />
             </motion.div>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }

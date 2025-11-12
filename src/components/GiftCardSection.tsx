@@ -22,15 +22,15 @@ export default function GiftCardSection() {
   const card = getCard(code);
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-gradient-to-b from-[#0a0a0a] to-[#1a1a1a]">
       {/* Main content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         {/* Introduction section */}
         <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-blue-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold gradient-text mb-4">
             Redeem Your Demo $RWAINC Gift Card
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-base sm:text-lg">
+          <p className="text-white/70 max-w-2xl mx-auto text-base sm:text-lg">
             Click on any card to flip and reveal the redemption code. Choose
             your preferred redemption method.
           </p>
@@ -41,15 +41,15 @@ export default function GiftCardSection() {
           {/* Barcode card */}
           <div className="flex flex-col items-center">
             <div className="w-full mb-6">
-              <h3 className="text-lg font-semibold text-blue-900 text-center mb-2">
+              <h3 className="text-lg font-semibold text-white text-center mb-2">
                 Barcode Redemption
               </h3>
-              <p className="text-sm text-gray-600 text-center">
+              <p className="text-sm text-white/70 text-center">
                 Scratch and reveal your code
               </p>
             </div>
             <GiftCardBarcode code={code} />
-            <div className=" text-sm text-gray-400">
+            <div className=" text-sm text-white/60">
               Demo Gift Card Code: {code}
             </div>
           </div>
@@ -57,15 +57,15 @@ export default function GiftCardSection() {
           {/* QR code card */}
           <div className="flex flex-col items-center">
             <div className="w-full mb-6">
-              <h3 className="text-lg font-semibold text-blue-900 text-center mb-2">
+              <h3 className="text-lg font-semibold text-white text-center mb-2">
                 QR Code Redemption
               </h3>
-              <p className="text-sm text-gray-600 text-center">
+              <p className="text-sm text-white/70 text-center">
                 Scan with your mobile device
               </p>
             </div>
             <GiftCardQr amount={card?.balance ?? 0} code={code} />
-            <div className=" text-sm text-gray-400">
+            <div className=" text-sm text-white/60">
               Demo Gift Card Code: {code}
             </div>
           </div>
@@ -79,10 +79,10 @@ export default function GiftCardSection() {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <h3 className="text-3xl sm:text-4xl font-bold text-blue-900 mb-4">
+          <h3 className="text-3xl sm:text-4xl font-bold gradient-text mb-4">
             How to Redeem
           </h3>
-          <p className="text-gray-600 max-w-2xl mx-auto text-base sm:text-lg">
+          <p className="text-white/70 max-w-2xl mx-auto text-base sm:text-lg">
             Follow these simple steps to redeem your gift card and receive your
             $RWAINC tokens
           </p>
@@ -201,21 +201,21 @@ export default function GiftCardSection() {
 
         {/* Important notice with clean design */}
         <motion.div
-          className="relative bg-gradient-to-r from-blue-50/80 to-cyan-50/80 border border-blue-200/50 rounded-[25px] p-6 sm:p-8 backdrop-blur-sm"
+          className="relative bg-gradient-to-r from-[#1a1a1a]/80 to-[#2a2a2a]/80 border border-white/10 rounded-[25px] p-6 sm:p-8 backdrop-blur-sm"
           variants={itemVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
           {/* Subtle decorative elements */}
-          <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-blue-300/20 to-transparent rounded-full blur-xl" />
-          <div className="absolute bottom-0 left-0 w-12 h-12 bg-gradient-to-tr from-cyan-300/20 to-transparent rounded-full blur-lg" />
+          <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-[#3EF2D0]/20 to-transparent rounded-full blur-xl" />
+          <div className="absolute bottom-0 left-0 w-12 h-12 bg-gradient-to-tr from-[#0055D6]/20 to-transparent rounded-full blur-lg" />
 
           <div className="relative z-10">
-            <h4 className="font-bold text-blue-900 mb-6 text-lg flex items-center gap-3">
-              <div className="p-2 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-xl border border-blue-200/50 shadow-sm">
+            <h4 className="font-bold text-white mb-6 text-lg flex items-center gap-3">
+              <div className="p-2 bg-gradient-to-br from-[#3EF2D0]/20 to-[#0055D6]/20 rounded-xl border border-white/10 shadow-sm">
                 <svg
-                  className="w-5 h-5 text-blue-600"
+                  className="w-5 h-5 text-[#3EF2D0]"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -228,34 +228,34 @@ export default function GiftCardSection() {
               </div>
               Important Notice
             </h4>
-            <ul className="text-sm text-gray-700 space-y-4">
+            <ul className="text-sm text-white/70 space-y-4">
               <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mt-2 flex-shrink-0" />
+                <div className="w-2 h-2 bg-gradient-to-r from-[#3EF2D0] to-[#0055D6] rounded-full mt-2 flex-shrink-0" />
                 <span className="leading-relaxed">
                   This is a demonstration of the gift card redemption system
                 </span>
               </li>
               <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mt-2 flex-shrink-0" />
+                <div className="w-2 h-2 bg-gradient-to-r from-[#3EF2D0] to-[#0055D6] rounded-full mt-2 flex-shrink-0" />
                 <span className="leading-relaxed">
                   Your wallet address must be on Base Chain for $RWAINC tokens
                 </span>
               </li>
               <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mt-2 flex-shrink-0" />
+                <div className="w-2 h-2 bg-gradient-to-r from-[#3EF2D0] to-[#0055D6] rounded-full mt-2 flex-shrink-0" />
                 <span className="leading-relaxed">
                   No fees or taxes - tokens go directly to your wallet
                 </span>
               </li>
               <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full mt-2 flex-shrink-0" />
+                <div className="w-2 h-2 bg-gradient-to-r from-[#3EF2D0] to-[#0055D6] rounded-full mt-2 flex-shrink-0" />
                 <span className="leading-relaxed">
                   For support, visit{" "}
-                  <span className="text-blue-600 font-medium hover:text-blue-700 transition-colors">
+                  <span className="text-[#3EF2D0] font-medium hover:text-white transition-colors">
                     www.rwa.inc
                   </span>{" "}
                   or contact{" "}
-                  <span className="text-blue-600 font-medium hover:text-blue-700 transition-colors">
+                  <span className="text-[#3EF2D0] font-medium hover:text-white transition-colors">
                     support@rwa.inc
                   </span>
                 </span>

@@ -1,65 +1,52 @@
-'use client'
-import Image from 'next/image'
-import { motion } from 'framer-motion'
-import { section } from 'framer-motion/client'
-import { useEffect, useState } from 'react'
+"use client";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import {
+  IoShieldCheckmarkOutline,
+  IoCalculatorOutline,
+  IoLanguageOutline,
+  IoWalletOutline,
+} from "react-icons/io5";
 
 interface Feature {
-  title: string
-  description: string
-  image: string
+  title: string;
+  description: string;
+  image: string;
+  icon: React.ReactNode;
 }
 
 export default function FeaturesSection() {
-  // Generar estrellitas solo en el cliente para evitar error de hidratación
-  const [stars, setStars] = useState<
-    Array<{
-      id: number
-      left: string
-      top: string
-      size: number
-      anim: string
-      delay: string
-    }>
-  >([])
-
-  useEffect(() => {
-    const generated = Array.from({ length: 18 }, (_, i) => ({
-      id: i,
-      left: `${30 + Math.random() * 40}%`,
-      top: `${-40 + Math.random() * 90}px`,
-      size: 0.1 + Math.random() * 0.1,
-      anim: `star-tw-${i}`,
-      delay: `${0.5 + Math.random() * 2}s`,
-    }))
-    setStars(generated)
-  }, [])
   const features: Feature[] = [
     {
-      title: 'Secure one-time codes',
+      title: "Secure one-time codes",
       description:
-        'Scratch, QR or NFC codes with anti-replay validation to prevent reuse or fraud.',
-      image: '/images/features1.png',
+        "Scratch, QR or NFC codes with anti-replay validation to prevent reuse or fraud.",
+      image: "/images/features1.png",
+      icon: <IoShieldCheckmarkOutline className="w-8 h-8" />,
     },
     {
-      title: 'Real-time USD-to-token- calculation',
+      title: "Real-time USD-to-token calculation",
       description:
-        'Convert your USD balance to $RWAINC instantly with live rates, no hidden fees.',
-      image: '/images/features2.png',
+        "Convert your USD balance to $RWAINC instantly with live rates, no hidden fees.",
+      image: "/images/features2.png",
+      icon: <IoCalculatorOutline className="w-8 h-8" />,
     },
     {
-      title: 'Multi-language & mobile-first.',
+      title: "Multi-language & mobile-first",
       description:
-        'Optimized for mobile and kiosks, with flows in English, Spanish, and more.',
-      image: '/images/features3.png',
+        "Optimized for mobile and kiosks, with flows in English, Spanish, and more.",
+      image: "/images/features3.png",
+      icon: <IoLanguageOutline className="w-8 h-8" />,
     },
     {
-      title: 'Wallet integration',
+      title: "Wallet integration",
       description:
-        'Connect via WalletConnect, MetaMask, or Web3 apps to receive tokens instantly.',
-      image: '/images/features4.png',
+        "Connect via WalletConnect, MetaMask, or Web3 apps to receive tokens instantly.",
+      image: "/images/features4.png",
+      icon: <IoWalletOutline className="w-8 h-8" />,
     },
-  ]
+  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -70,170 +57,121 @@ export default function FeaturesSection() {
         staggerChildren: 0.2,
       },
     },
-  }
+  };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 60, scale: 0.8 },
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
-        duration: 0.6,
-        ease: 'easeOut' as const,
+        duration: 0.7,
+        ease: "easeOut" as const,
       },
     },
-  }
+  };
+
+  const iconVariants = {
+    hidden: { scale: 0, rotate: -180 },
+    visible: {
+      scale: 1,
+      rotate: 0,
+      transition: {
+        duration: 0.6,
+        delay: 0.2,
+        ease: "easeOut" as const,
+      },
+    },
+  };
 
   return (
     <section
-      className='w-full h-full p-6 relative'
+      id="features"
+      className="w-full py-20 px-6 relative"
       style={{
-        background: 'linear-gradient(180deg, #EFEFEF 80%, #FFFFFF 100%)',
+        background: "linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%)",
       }}
     >
-      {/* Gradient at bottom for smooth transition to next section */}
-      <div className='absolute bottom-0 left-0 w-full h-24 pointer-events-none z-10' />
-      <div className='bg-[#020664] rounded-[40px] relative overflow-hidden pt-20'>
-        {/* Grid Pattern Background */}
-        <div
-          className='absolute bottom-0 left-0 w-1/2 h-1/2 opacity-10'
-          style={{
-            backgroundImage: `
-            linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px),
-            linear-gradient(0deg, rgba(255,255,255,0.3) 1px, transparent 1px)
-            `,
-            backgroundSize: '25px 25px',
-            backgroundPosition: 'bottom left',
-            maskImage: `
-            radial-gradient(
-              ellipse at bottom left,
-              rgba(0,0,0,1) 0%,
-              rgba(0,0,0,0.5) 90%,
-              rgba(0,0,0,0) 95%
-              )
-              `,
-            WebkitMaskImage: `
-              radial-gradient(
-                ellipse at bottom left,
-                rgba(0,0,0,1) 0%,
-                rgba(0,0,0,0.5) 50%,
-                rgba(0,0,0,0) 70%
-                )
-                `,
-          }}
-        />
-
-        {/* Top Decoration animado */}
+      <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
         <motion.div
-          initial={{ y: -100, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 2.5, ease: 'easeOut' }}
-          className='absolute top-0 left-1/2 transform -translate-x-1/2 w-full z-20'
+          className="text-center mb-16"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
         >
-          <Image
-            src='/images/top-decoration.png'
-            alt='Top Decoration'
-            unoptimized
-            width={160}
-            height={160}
-            className='w-full h-full object-cover rounded-full'
-          />
-        </motion.div>
-
-        {/* Estrellitas animadas debajo del top decoration usando Tailwind */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 1.2, delay: 2.5 }}
-          className='absolute left-0 w-full z-10 pointer-events-none flex justify-center'
-          style={{ top: 155 }}
-        >
-          <div className='relative w-full h-40'>
-            {stars.map((star) => (
-              <div
-                key={star.id}
-                className='absolute rounded-full bg-white opacity-80 shadow animate-[pulse_1.5s_infinite]'
-                style={{
-                  left: star.left,
-                  top: star.top,
-                  width: `${star.size}rem`,
-                  height: `${star.size}rem`,
-                  animation: `${star.anim} 2.5s ease-in-out ${star.delay} infinite alternate`,
-                }}
-              />
-            ))}
-            <style>{`
-              ${stars
-                .map(
-                  (star) => `
-                @keyframes ${star.anim} {
-                  0% { transform: translateY(0) translateX(0); }
-                  100% { transform: translateY(${
-                    Math.random() * 18 - 9
-                  }px) translateX(${Math.random() * 14 - 7}px); }
-                }
-              `
-                )
-                .join('')}
-            `}</style>
-          </div>
-        </motion.div>
-
-        {/* Content Container */}
-        <div className='relative z-30 px-6 py-12 lg:px-12 lg:pt-25 lg:pb-12'>
-          {/* Title */}
           <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className='text-4xl lg:text-5xl z-25 font-bold text-white text-center mb-16'
+            className="heading-xl gradient-text mb-8 text-shadow-glow"
+            variants={cardVariants}
           >
-            Features
+            Powerful Features
           </motion.h2>
-
-          {/* Features Grid */}
-          <motion.div
-            variants={containerVariants}
-            initial='hidden'
-            whileInView='visible'
-            viewport={{ once: true }}
-            className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4'
+          <motion.p
+            className="text-white/80 text-xl-readable max-w-3xl mx-auto"
+            variants={cardVariants}
           >
-            {features.map((feature, index) => (
+            Experience seamless gift card redemption with our cutting-edge
+            technology and security features designed for the modern digital
+            world.
+          </motion.p>
+        </motion.div>
+
+        {/* Features Grid */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          {features.map((feature, index) => (
+            <motion.div
+              key={index}
+              className="glass-card feature-card p-6 text-center group"
+              variants={cardVariants}
+              whileHover={{
+                y: -8,
+                scale: 1.02,
+                transition: { duration: 0.3 },
+              }}
+            >
+              {/* Icon */}
               <motion.div
-                key={index}
-                variants={cardVariants}
-                className='relative h-full p-4 lg:p-6 rounded-[30px] bg-gradient-to-br from-[#020664] to-[#040CCA] border border-white/10 backdrop-blur-sm '
+                className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl flex items-center justify-center group-hover:shadow-lg group-hover:shadow-purple-500/25 transition-all duration-300"
+                variants={iconVariants}
               >
-                <div className='flex flex-col h-full justify-between items-center text-center space-y-4'>
-                  {/* Title */}
-                  <h3 className='text-xl lg:text-2xl font-bold bg-gradient-to-b from-white to-[#0055D6] bg-clip-text text-transparent'>
-                    {feature.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className='text-gray-400 text-sm lg:text-base leading-relaxed'>
-                    {feature.description}
-                  </p>
-
-                  {/* Image */}
-                  <div className='w-full h-32 lg:h-40 relative'>
-                    <Image
-                      src={feature.image}
-                      alt={feature.title}
-                      fill
-                      className='object-contain'
-                    />
-                  </div>
-                </div>
+                <div className="text-white">{feature.icon}</div>
               </motion.div>
-            ))}
-          </motion.div>
-        </div>
+
+              {/* Feature Image */}
+              <div className="mb-6 relative overflow-hidden rounded-xl">
+                <Image
+                  src={feature.image}
+                  alt={feature.title}
+                  width={300}
+                  height={200}
+                  className="w-full h-40 object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+
+              {/* Content */}
+              <h3 className="text-white font-bold text-xl mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-blue-400 transition-all duration-300">
+                {feature.title}
+              </h3>
+
+              <p className="text-white/80 text-lg-readable">
+                {feature.description}
+              </p>
+
+              {/* Hover Glow Effect */}
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
-  )
+  );
 }
