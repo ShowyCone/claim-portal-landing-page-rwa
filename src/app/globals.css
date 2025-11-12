@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* Root Variables for Dark Theme */
 :root {
@@ -99,14 +99,13 @@ body {
 }
 
 .particle-bg::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image:
-    radial-gradient(
+  background-image: radial-gradient(
       circle at 25% 25%,
       rgba(139, 92, 246, 0.1) 1px,
       transparent 1px
@@ -121,10 +120,7 @@ body {
       rgba(139, 92, 246, 0.05) 1px,
       transparent 1px
     );
-  background-size:
-    50px 50px,
-    70px 70px,
-    90px 90px;
+  background-size: 50px 50px, 70px 70px, 90px 90px;
   animation: particleFloat 20s linear infinite;
   pointer-events: none;
 }
@@ -184,7 +180,7 @@ body {
 }
 
 .shimmer-effect::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: -100%;
@@ -273,7 +269,7 @@ body {
 }
 
 .btn-gradient::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: -100%;
@@ -316,9 +312,7 @@ body {
 
 .feature-card:hover {
   transform: translateY(-8px) scale(1.02);
-  box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(139, 92, 246, 0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(139, 92, 246, 0.2);
 }
 
 /* Typography Enhancements */

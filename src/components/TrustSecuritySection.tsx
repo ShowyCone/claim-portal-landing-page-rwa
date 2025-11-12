@@ -1,77 +1,77 @@
-"use client";
+'use client'
 
-import React from "react";
-import { motion } from "framer-motion";
-import { FaLock, FaShieldAlt } from "react-icons/fa";
-import { TbZoomExclamation } from "react-icons/tb";
-import Image from "next/image";
+import React from 'react'
+import { motion } from 'framer-motion'
+import { FaLock, FaShieldAlt } from 'react-icons/fa'
+import { TbZoomExclamation } from 'react-icons/tb'
+import Image from 'next/image'
 
 interface TrustCard {
-  id: number;
-  icon: React.ReactNode;
-  text: string;
-  numberPosition: "top" | "bottom";
+  id: number
+  icon: React.ReactNode
+  text: string
+  numberPosition: 'top' | 'bottom'
 }
 
 const TrustSecuritySection: React.FC = () => {
-  const ref = React.useRef(null);
+  const ref = React.useRef(null)
 
   const trustCards: TrustCard[] = [
     {
       id: 1,
       icon: (
-        <span className="text-8xl text-[#3EF2D0] group-hover:text-white flex items-center justify-center transition-colors duration-500">
+        <span className='text-8xl text-[#3EF2D0] group-hover:text-white flex items-center justify-center transition-colors duration-500'>
           <FaLock />
         </span>
       ),
-      text: "End-to-end encryption.",
-      numberPosition: "top",
+      text: 'End-to-end encryption.',
+      numberPosition: 'top',
     },
     {
       id: 2,
       icon: (
-        <span className="text-8xl text-[#3EF2D0] group-hover:text-white flex items-center justify-center transition-colors duration-500">
+        <span className='text-8xl text-[#3EF2D0] group-hover:text-white flex items-center justify-center transition-colors duration-500'>
           <TbZoomExclamation />
         </span>
       ),
-      text: "Fraud detection & monitoring.",
-      numberPosition: "bottom",
+      text: 'Fraud detection & monitoring.',
+      numberPosition: 'bottom',
     },
     {
       id: 3,
       icon: (
-        <span className="text-8xl text-[#3EF2D0] group-hover:text-white flex items-center justify-center transition-colors duration-500">
+        <span className='text-8xl text-[#3EF2D0] group-hover:text-white flex items-center justify-center transition-colors duration-500'>
           <FaShieldAlt />
         </span>
       ),
-      text: "Independent audits & compliance (AML/KYC, regional licensing).",
-      numberPosition: "top",
+      text: 'Independent audits & compliance (AML/KYC, regional licensing).',
+      numberPosition: 'top',
     },
     {
       id: 4,
       icon: (
-        <span className="flex items-center justify-center w-full">
+        <span className='flex items-center justify-center w-full'>
           <Image
-            src="/images/RWALogoWhiteText.svg"
-            alt="RWA Logo"
+            src='/images/RWALogoWhiteText.svg'
+            alt='RWA Logo'
             width={320}
             height={160}
-            className="w-80 h-40 transition-all duration-500 group-hover:invert group-hover:brightness-0"
+            className='w-80 h-40 transition-all duration-500 group-hover:invert group-hover:brightness-0'
           />
         </span>
       ),
-      text: "Backed by RWA Inc.",
-      numberPosition: "bottom",
+      text: 'Backed by RWA Inc.',
+      numberPosition: 'bottom',
     },
-  ];
+  ]
 
   return (
     <section
-      className="py-8 px-4 md:py-20 md:px-16 w-full mx-auto bg-gradient-to-b from-[#0a0a0a] to-[#1a1a1a]"
+      className='py-8 px-4 md:py-20 md:px-16 w-full mx-auto bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a]'
       ref={ref}
     >
       <motion.h2
-        className="text-4xl md:text-5xl font-bold text-center mb-20 gradient-text"
+        className='text-4xl md:text-5xl font-bold text-center mb-20 gradient-text'
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -79,17 +79,17 @@ const TrustSecuritySection: React.FC = () => {
         Trust & Security
       </motion.h2>
 
-      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6'>
         {trustCards.map((card) => (
           <div
             key={card.id}
-            className="relative rounded-[30px] px-3 py-8 min-h-[340px] transition-all duration-500 hover:scale-[1.02] shadow-lg bg-[#E8E8E852] hover:bg-gradient-to-b hover:from-[#0055D6] hover:to-[#020664] group"
+            className='relative rounded-[30px] px-3 py-8 min-h-[340px] transition-all duration-500 hover:scale-[1.02] shadow-lg bg-[#E8E8E852] hover:bg-gradient-to-b hover:from-[#0055D6] hover:to-[#020664] group'
           >
             <div
               className={`absolute w-7 h-7 rounded-full border border-gray-400 flex items-center justify-center font-bold text-xs transition-colors duration-500 ${
-                card.numberPosition === "top"
-                  ? "top-4 left-4"
-                  : "bottom-4 left-4"
+                card.numberPosition === 'top'
+                  ? 'top-4 left-4'
+                  : 'bottom-4 left-4'
               }`}
             >
               <span
@@ -99,27 +99,27 @@ const TrustSecuritySection: React.FC = () => {
               </span>
             </div>
 
-            <div className="flex flex-col items-center justify-center h-full min-h-[200px]">
+            <div className='flex flex-col items-center justify-center h-full min-h-[200px]'>
               {card.id === 3 ? (
                 <>
-                  {card.numberPosition === "top" && (
-                    <div className="mb-4">{card.icon}</div>
+                  {card.numberPosition === 'top' && (
+                    <div className='mb-4'>{card.icon}</div>
                   )}
                   <p
                     className={`font-semibold text-center text-xl md:text-2xl transition-colors duration-500 text-white group-hover:text-white mb-0`}
                   >
                     Independent audits & compliance
                   </p>
-                  <span className="block text-center text-sm md:text-base text-white/80 group-hover:text-white mt-1">
+                  <span className='block text-center text-sm md:text-base text-white/80 group-hover:text-white mt-1'>
                     (AML/KYC, regional licensing).
                   </span>
-                  {card.numberPosition === "bottom" && (
-                    <div className="mt-4">{card.icon}</div>
+                  {card.numberPosition === 'bottom' && (
+                    <div className='mt-4'>{card.icon}</div>
                   )}
                 </>
-              ) : card.numberPosition === "top" ? (
+              ) : card.numberPosition === 'top' ? (
                 <>
-                  <div className="mb-4">{card.icon}</div>
+                  <div className='mb-4'>{card.icon}</div>
                   <p
                     className={`font-semibold text-center text-xl md:text-2xl transition-colors duration-500 text-white group-hover:text-white`}
                   >
@@ -141,7 +141,7 @@ const TrustSecuritySection: React.FC = () => {
         ))}
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default TrustSecuritySection;
+export default TrustSecuritySection

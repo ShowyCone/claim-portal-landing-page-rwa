@@ -1,29 +1,29 @@
-"use client";
-import { ReactNode } from "react";
-import { useScrollAnimation } from "@/lib/useScrollAnimation";
+'use client'
+import { ReactNode } from 'react'
+import { useScrollAnimation } from '@/lib/useScrollAnimation'
 
 interface ScrollFadeInProps {
-  children: ReactNode;
-  className?: string;
-  delay?: number;
+  children: ReactNode
+  className?: string
+  delay?: number
 }
 
 export default function ScrollFadeIn({
   children,
-  className = "",
+  className = '',
   delay = 0,
 }: ScrollFadeInProps) {
-  const { ref, isVisible } = useScrollAnimation();
+  const { ref, isVisible } = useScrollAnimation()
 
   return (
     <div
       ref={ref}
-      className={`scroll-fade-in ${isVisible ? "visible" : ""} ${className}`}
+      className={`scroll-fade-in ${isVisible ? 'visible' : ''} ${className}`}
       style={{
         transitionDelay: `${delay}ms`,
       }}
     >
       {children}
     </div>
-  );
+  )
 }
