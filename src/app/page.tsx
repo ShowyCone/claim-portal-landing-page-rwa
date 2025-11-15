@@ -1,24 +1,24 @@
-import HeroSection from '@/components/HeroSection'
-import TrustedBrandsSection from '@/components/TrustedBrandsSection'
-import ValuePropositionSection from '@/components/ValuePropositionSection'
-import TwoColumnSection from '@/components/TwoColumnSection'
-import HowItWorksSection from '@/components/HowItWorksSection'
-import FeaturesSection from '@/components/FeaturesSection'
-import WhoItsForSection from '@/components/WhoItsForSection'
-import GlobalRolloutSection from '@/components/GlobalRolloutSection'
-import GiftCardJourneySection from '@/components/GiftCardJourneySection'
-import TrustSecuritySection from '@/components/TrustSecuritySection'
-import TrustedUsersSection from '@/components/TrustedUsersSection'
-import FAQSection from '@/components/FAQSection'
-import FinalBanner from '@/components/FinalBanner'
-import Footer from '@/components/Footer'
-import GiftCardSection from '@/components/GiftCardSection'
-import ScrollFadeIn from '@/components/ScrollFadeIn'
-import ScrollToTopButton from '@/components/ScrollToTopButton'
+import HeroSection from "@/components/HeroSection";
+import TrustedBrandsSection from "@/components/TrustedBrandsSection";
+import ValuePropositionSection from "@/components/ValuePropositionSection";
+import TwoColumnSection from "@/components/TwoColumnSection";
+import HowItWorksSection from "@/components/HowItWorksSection";
+import FeaturesSection from "@/components/FeaturesSection";
+import WhoItsForSection from "@/components/WhoItsForSection";
+import GlobalRolloutSection from "@/components/GlobalRolloutSection";
+import GiftCardJourneySection from "@/components/GiftCardJourneySection";
+import TrustSecuritySection from "@/components/TrustSecuritySection";
+import TrustedUsersSection from "@/components/TrustedUsersSection";
+import FAQSection from "@/components/FAQSection";
+import FinalBanner from "@/components/FinalBanner";
+import Footer from "@/components/Footer";
+import GiftCardSection from "@/components/GiftCardSection";
+import ScrollFadeIn from "@/components/ScrollFadeIn";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 export default function Home() {
   return (
-    <div className='min-h-screen overflow-hidden overflow-x-scroll'>
+    <div className="min-h-screen">
       <HeroSection />
       <ScrollFadeIn delay={100}>
         <TrustedBrandsSection />
@@ -62,5 +62,5 @@ export default function Home() {
       <Footer />
       <ScrollToTopButton />
     </div>
-  )
+  );
 }

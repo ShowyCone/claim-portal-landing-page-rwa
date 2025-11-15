@@ -12,7 +12,7 @@ import {
 
 export default function Footer() {
   return (
-    <section className='w-full h-full p-6 mt-10 bg-[#1a1a1a]'>
+    <section className='w-full h-full p-6 mt-10'>
       <motion.footer
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
