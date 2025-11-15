@@ -1,34 +1,31 @@
-"use client";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+'use client'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
 import {
   IoArrowUpOutline,
   IoDownloadOutline,
   IoPersonOutline,
   IoAddOutline,
   IoStar,
-  IoMenuOutline,
-  IoCloseOutline,
-} from "react-icons/io5";
-import Button from "./Button";
+} from 'react-icons/io5'
+import Button from './Button'
 
 export default function HeroSection() {
-  const [isBlueFront, setIsBlueFront] = useState(true);
-  const [zIndexSwapped, setZIndexSwapped] = useState(true);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isBlueFront, setIsBlueFront] = useState(true)
+  const [zIndexSwapped, setZIndexSwapped] = useState(true)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setIsBlueFront((prev) => !prev);
+      setIsBlueFront((prev) => !prev)
 
       setTimeout(() => {
-        setZIndexSwapped((prev) => !prev);
-      }, 500);
-    }, 3000);
+        setZIndexSwapped((prev) => !prev)
+      }, 500)
+    }, 3000)
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearInterval(interval)
+  }, [])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -39,7 +36,7 @@ export default function HeroSection() {
         staggerChildren: 0.2,
       },
     },
-  };
+  }
 
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -48,10 +45,10 @@ export default function HeroSection() {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: "easeOut" as const,
+        ease: 'easeOut' as const,
       },
     },
-  };
+  }
 
   const cardAnimation = {
     hidden: {
@@ -64,249 +61,174 @@ export default function HeroSection() {
       transition: {
         duration: 0.8,
         delay: 0.5,
-        ease: "easeOut" as const,
+        ease: 'easeOut' as const,
       },
     },
-  };
+  }
 
   return (
     <motion.section
-      id="home"
-      className="relative min-h-screen flex flex-col grid-pattern"
-      style={{
-        background: "linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)",
-      }}
+      className='bg-[#020664] m-5 rounded-[40px] h-[calc(100vh-2.5rem)] flex flex-col overflow-hidden relative pb-15 lg:pb-0'
       variants={containerVariants}
-      initial="hidden"
-      animate="visible"
+      initial='hidden'
+      animate='visible'
     >
-      {/* Enhanced Background Elements */}
       <div
-        className="pointer-events-none absolute z-0"
+        className='pointer-events-none absolute z-0'
         style={{
-          width: "1200px",
-          height: "1200px",
-          right: "-500px",
-          bottom: "-600px",
-          borderRadius: "50%",
+          width: '1200px',
+          height: '1200px',
+          right: '-500px',
+          bottom: '-600px',
+          borderRadius: '50%',
           background:
-            "radial-gradient(circle at 70% 80%, #8B5CF6 0%, rgba(139, 92, 246, 0.7) 25%, rgba(139, 92, 246, 0.4) 50%, rgba(139, 92, 246, 0.1) 75%, transparent 100%)",
-          filter: "blur(80px)",
+            'radial-gradient(circle at 70% 80%, #79A7FF 0%, rgba(121, 167, 255, 0.7) 25%, rgba(121, 167, 255, 0.4) 50%, rgba(121, 167, 255, 0.1) 75%, transparent 100%)',
+          filter: 'blur(60px)',
         }}
       />
 
-      {/* Additional gradient orb */}
-      <div
-        className="pointer-events-none absolute z-0"
-        style={{
-          width: "800px",
-          height: "800px",
-          left: "-300px",
-          top: "-200px",
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle at 30% 20%, #3B82F6 0%, rgba(59, 130, 246, 0.6) 30%, rgba(59, 130, 246, 0.3) 60%, transparent 100%)",
-          filter: "blur(100px)",
-        }}
-      />
-
-      <div className="pointer-events-none absolute bottom-0 right-0 z-[1] opacity-20">
+      <div className='pointer-events-none absolute bottom-0 right-0 z-[1] opacity-[38%]'>
         <Image
-          src="/images/diamond.png"
-          alt="Diamond decoration"
-          width={400}
-          height={420}
-          className="object-contain"
-          draggable="false"
+          src='/images/diamond.png'
+          alt='Diamond decoration'
+          width={355}
+          height={370}
+          className='object-contain'
+          draggable='false'
         />
       </div>
 
-      {/* Animated particles */}
-      <div className="pointer-events-none absolute inset-0 z-[1]">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-gradient-to-r from-purple-400 to-blue-500 rounded-full"
-            style={{
-              left: `${20 + i * 15}%`,
-              top: `${30 + i * 10}%`,
-            }}
-            animate={{
-              y: [-10, 10, -10],
-              x: [-5, 5, -5],
-              scale: [1, 1.2, 1],
-              opacity: [0.3, 0.8, 0.3],
-            }}
-            transition={{
-              duration: 4 + i * 0.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: i * 0.2,
-            }}
-          />
-        ))}
+      <div className='pointer-events-none absolute top-0 -left-10 z-[99] w-[800px] h-[400px]'>
+        <img
+          src='/light.svg'
+          alt='Diagonal light beam'
+          className='h-[600px] object-contain -top-15 left-0 absolute'
+          draggable='false'
+        />
+        <img
+          src='/light.svg'
+          alt='Short diagonal light beam'
+          className='h-[460px] object-contain absolute opacity-70 top-2 -left-20'
+          draggable='false'
+        />
       </div>
       <motion.header
-        className="fixed top-0 left-0 right-0 z-50 glass-nav flex items-center justify-between px-6 lg:px-20 py-4"
+        className='flex items-center justify-between px-6 lg:px-20 py-4'
         variants={itemVariants}
       >
-        <div className="w-48 flex justify-start">
+        <div className='w-48 flex justify-start'>
           <Image
-            src="/Logo.svg"
-            alt="RWA Logo"
+            src='/Logo.svg'
+            alt='RWA Logo'
             width={120}
             height={40}
-            className="h-10 w-auto"
+            className='h-10 w-auto'
           />
         </div>
 
-        <nav className="hidden lg:flex items-center space-x-8">
-          {["Home", "About", "Features", "FAQ", "Contact"].map((link) => (
+        <nav className='hidden lg:flex items-center space-x-8'>
+          {['Home', 'About', 'FAQ', 'Pricing', 'Contact'].map((link) => (
             <a
               key={link}
               href={`#${link.toLowerCase()}`}
-              className="text-white/90 hover:text-white transition-colors duration-300 font-medium text-sm relative group"
+              className='text-white hover:text-[#3EF2D0] transition-colors duration-300 font-medium text-md'
             >
               {link}
-              <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-gradient-to-r from-purple-400 to-blue-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
             </a>
           ))}
         </nav>
 
-        <div className="flex items-center gap-4">
-          <div className="hidden lg:block">
-            <Button
-              label="Buy Gift Card"
-              icon={<IoArrowUpOutline className="w-3.5 h-3.5 rotate-45" />}
-              onClick={() => console.log("Buy Gift Card clicked!")}
-            />
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-colors duration-300"
-          >
-            {isMobileMenuOpen ? (
-              <IoCloseOutline className="w-6 h-6" />
-            ) : (
-              <IoMenuOutline className="w-6 h-6" />
-            )}
-          </button>
+        <div className='w-48 flex justify-end'>
+          <Button
+            label='Buy Gift Card'
+            icon={<IoArrowUpOutline className='w-3.5 h-3.5 rotate-45' />}
+            onClick={() => console.log('Buy Gift Card clicked!')}
+          />
         </div>
       </motion.header>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden fixed top-16 left-0 right-0 z-40 glass-nav border-t border-white/10">
-          <div className="px-4 py-6 space-y-4">
-            {["Home", "About", "Features", "FAQ", "Contact"].map((link) => (
-              <a
-                key={link}
-                href={`#${link.toLowerCase()}`}
-                className="block text-white/90 hover:text-white text-lg font-medium py-2 px-4 rounded-lg hover:bg-white/10 transition-colors duration-300"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {link}
-              </a>
-            ))}
-
-            <div className="pt-4 border-t border-white/10">
-              <Button
-                label="Buy Gift Card"
-                icon={<IoArrowUpOutline className="w-3.5 h-3.5 rotate-45" />}
-                onClick={() => {
-                  console.log("Buy Gift Card clicked!");
-                  setIsMobileMenuOpen(false);
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      )}
-
-      <div className="flex-1 flex items-center px-6 lg:px-12 py-6 relative z-10 pt-32">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full max-w-7xl mx-auto items-center">
+      <div className='flex-1 flex items-center px-6 lg:px-12 py-6 relative z-10'>
+        <div className='grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8 w-full max-w-6xl mx-auto items-center'>
           <motion.div
-            className="lg:col-span-5 space-y-8 flex flex-col justify-center"
+            className='lg:col-span-2 space-y-3 flex flex-col justify-center lg:pl-8 lg:pr-4'
             variants={itemVariants}
           >
             <motion.h1
-              className="heading-hero gradient-text-hero text-shadow-glow mb-6"
+              className='text-xl md:text-2xl lg:text-3xl font-bold leading-tight'
               variants={itemVariants}
             >
-              Redeem Your RWA
+              <span className='bg-gradient-to-r from-white to-[#3EF2D0] bg-clip-text text-transparent'>
+                Redeem Your RWA
+              </span>
               <br />
-              Gift Card in Seconds
+              <span className='bg-gradient-to-r from-white to-[#3EF2D0] bg-clip-text text-transparent'>
+                Gift Card in Seconds
+              </span>
             </motion.h1>
+
             <motion.p
-              className="text-white/80 text-lg leading-relaxed max-w-md"
+              className='text-white/70 text-xs md:text-sm max-w-xs leading-relaxed'
               variants={itemVariants}
             >
               Seamless, secure, and borderless redemption — turn physical or
               digital gift cards into real on-chain value.
             </motion.p>
-            <motion.div className="space-y-6" variants={itemVariants}>
-              <div className="flex flex-col sm:flex-row gap-4 items-start">
-                <Button
-                  label="Redeem Now"
-                  icon={<IoDownloadOutline className="w-4 h-4" />}
-                  onClick={() => console.log("Hero button clicked!")}
-                  size="md"
-                />
 
-                <motion.a
-                  href="#features"
-                  className="px-6 py-3 text-white/80 hover:text-white border border-white/20 hover:border-white/40 transition-all duration-300 flex items-center justify-center rounded-lg font-medium text-base"
-                  whileHover={{ scale: 1.02, y: -1 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Learn How It Works
-                </motion.a>
-              </div>
-            </motion.div>{" "}
+            <motion.div className='space-y-2' variants={itemVariants}>
+              <Button
+                label='Redeem Now'
+                icon={<IoDownloadOutline className='w-3.5 h-3.5' />}
+                onClick={() => console.log('Hero button clicked!')}
+              />
+
+              <motion.a
+                href='#learn'
+                className='text-white underline hover:text-[#3EF2D0] transition-colors duration-300 block text-xs'
+                whileHover={{ x: 5 }}
+              >
+                Learn How It Works
+              </motion.a>
+            </motion.div>
+
             <motion.div
-              className="flex items-center gap-8 pt-6 border-t border-white/10"
+              className='flex items-start gap-2 space-x-4 flex-col'
               variants={itemVariants}
             >
-              <div className="flex items-center gap-3">
-                <div className="flex -space-x-2">
+              <div className='flex items-center'>
+                <div className='flex -space-x-2 items-center'>
                   {[1, 2, 3].map((i) => (
                     <div
                       key={i}
-                      className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center border border-white/20"
+                      className='w-8 h-8 bg-white/20 rounded-full flex items-center justify-center border-2 border-white'
                     >
-                      <IoPersonOutline className="w-4 h-4 text-white/70" />
+                      <IoPersonOutline className='w-4 h-4 text-white' />
                     </div>
                   ))}
-                </div>
-                <div className="text-white/80 text-sm">
-                  <span className="font-semibold text-white">2K+</span> users
+                  <div className='w-6 h-6 bg-white rounded-full flex items-center justify-center border-2 border-gray-700'>
+                    <IoAddOutline className='w-3 h-3 text-gray-700' />
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
-                <div className="flex">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <IoStar key={star} className="w-4 h-4 text-yellow-400" />
-                  ))}
+              <div className='flex items-center space-x-2'>
+                <div className='bg-yellow-500 p-2.5 rounded-lg'>
+                  <IoStar className='w-3.5 h-3.5 text-white' />
                 </div>
-                <div className="text-white/80 text-sm">
-                  <span className="font-semibold text-white">4.9</span> (600+
-                  reviews)
-                </div>
+                <span className='text-white/80 text-xs'>
+                  Rated 4.9/5 from over 600 reviews
+                </span>
               </div>
             </motion.div>
           </motion.div>
 
           <motion.div
-            className="lg:col-span-7 relative flex items-center justify-end h-96 lg:h-[500px] w-full z-10 mt-12 lg:mt-0 lg:pr-8"
+            className='lg:col-span-3 relative flex items-center justify-center h-80 lg:h-96 w-full z-10 mt-18 lg:mt-0'
             variants={itemVariants}
           >
             <motion.div
-              className={`absolute ${zIndexSwapped ? "z-20" : "z-10"}`}
+              className={`absolute ${zIndexSwapped ? 'z-20' : 'z-10'}`}
               variants={cardAnimation}
-              initial="hidden"
+              initial='hidden'
               animate={{
                 rotateZ: isBlueFront ? -8 : 8,
                 x: isBlueFront ? -20 : 20,
@@ -320,25 +242,25 @@ export default function HeroSection() {
               style={{
                 filter: `${
                   zIndexSwapped
-                    ? "drop-shadow(0 20px 25px rgb(0 0 0 / 0.25))"
-                    : "blur(3px) drop-shadow(0 20px 25px rgb(0 0 0 / 0.25))"
+                    ? 'drop-shadow(0 20px 25px rgb(0 0 0 / 0.25))'
+                    : 'blur(3px) drop-shadow(0 20px 25px rgb(0 0 0 / 0.25))'
                 }`,
               }}
             >
               <Image
-                src="/images/Blue-Gift-Card-50.png"
-                alt="Blue Gift Card $50"
-                width={320}
-                height={400}
-                className="rounded-2xl shadow-2xl"
+                src='/images/Blue-Gift-Card-50.png'
+                alt='Blue Gift Card $50'
+                width={280}
+                height={350}
+                className='rounded-2xl'
                 priority
               />
             </motion.div>
 
             <motion.div
-              className={`absolute ${zIndexSwapped ? "z-10" : "z-20"}`}
+              className={`absolute ${zIndexSwapped ? 'z-10' : 'z-20'}`}
               variants={cardAnimation}
-              initial="hidden"
+              initial='hidden'
               animate={{
                 rotateZ: isBlueFront ? 8 : -8,
                 x: isBlueFront ? 20 : -20,
@@ -352,30 +274,30 @@ export default function HeroSection() {
               style={{
                 filter: `${
                   zIndexSwapped
-                    ? "blur(3px) drop-shadow(0 20px 25px rgb(0 0 0 / 0.25))"
-                    : "drop-shadow(0 20px 25px rgb(0 0 0 / 0.25))"
+                    ? 'blur(3px) drop-shadow(0 20px 25px rgb(0 0 0 / 0.25))'
+                    : 'drop-shadow(0 20px 25px rgb(0 0 0 / 0.25))'
                 }`,
               }}
             >
               <Image
-                src="/images/Gold-Gift-Card-1k.png"
-                alt="Gold Gift Card $1000"
-                width={320}
-                height={400}
-                className="rounded-2xl shadow-2xl"
+                src='/images/Gold-Gift-Card-1k.png'
+                alt='Gold Gift Card $1000'
+                width={280}
+                height={350}
+                className='rounded-2xl'
                 priority
               />
             </motion.div>
 
             <motion.div
-              className="absolute inset-0 rounded-full blur-3xl opacity-20"
+              className='absolute inset-0 rounded-full blur-3xl opacity-20'
               animate={{
                 background: isBlueFront
-                  ? "radial-gradient(circle at 40% 50%, rgba(59, 130, 246, 0.3) 0%, transparent 70%)"
-                  : "radial-gradient(circle at 60% 50%, rgba(255, 215, 0, 0.3) 0%, transparent 70%)",
+                  ? 'radial-gradient(circle at 40% 50%, rgba(59, 130, 246, 0.3) 0%, transparent 70%)'
+                  : 'radial-gradient(circle at 60% 50%, rgba(255, 215, 0, 0.3) 0%, transparent 70%)',
                 transition: {
                   duration: 0.8,
-                  ease: "easeInOut",
+                  ease: 'easeInOut',
                 },
               }}
             />
@@ -383,5 +305,5 @@ export default function HeroSection() {
         </div>
       </div>
     </motion.section>
-  );
+  )
 }

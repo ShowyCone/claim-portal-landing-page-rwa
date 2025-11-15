@@ -1,8 +1,8 @@
-"use client";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { IoArrowDownOutline } from "react-icons/io5";
-import Button from "./Button";
+'use client'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
+import { IoArrowDownOutline } from 'react-icons/io5'
+import Button from './Button'
 
 export default function TwoColumnSection() {
   const containerVariants = {
@@ -14,7 +14,7 @@ export default function TwoColumnSection() {
         staggerChildren: 0.3,
       },
     },
-  };
+  }
 
   const leftColumnVariants = {
     hidden: { opacity: 0, x: -50 },
@@ -26,7 +26,7 @@ export default function TwoColumnSection() {
         ease: [0.25, 0.46, 0.45, 0.94] as const,
       },
     },
-  };
+  }
 
   const rightColumnVariants = {
     hidden: { opacity: 0, x: 50 },
@@ -38,7 +38,7 @@ export default function TwoColumnSection() {
         ease: [0.25, 0.46, 0.45, 0.94] as const,
       },
     },
-  };
+  }
 
   const phoneVariants = {
     hidden: {
@@ -54,7 +54,7 @@ export default function TwoColumnSection() {
         delay: 0.2,
       },
     },
-  };
+  }
 
   const giftCardVariants = {
     hidden: {
@@ -72,110 +72,100 @@ export default function TwoColumnSection() {
         delay: 0.5,
       },
     },
-  };
+  }
 
   const handleRedeemClick = () => {
-    console.log("Redeem Now clicked!");
-  };
+    console.log('Redeem Now clicked!')
+  }
 
   return (
     <motion.section
-      className="w-full py-16 px-4 md:px-8 lg:px-16"
+      className='w-full py-8 px-4 md:px-8 lg:px-16'
       variants={containerVariants}
-      initial="hidden"
-      animate="visible"
+      initial='hidden'
+      animate='visible'
       viewport={{ once: true }}
     >
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className='max-w-7xl mx-auto'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center'>
           {/* Left Column - Image Content */}
           <motion.div
-            className="relative flex justify-center items-center order-1 lg:order-1"
+            className='relative flex justify-center items-center order-1 lg:order-1'
             variants={leftColumnVariants}
           >
-            <div className="relative w-full max-w-md mx-auto">
+            <div className='relative w-full max-w-md mx-auto'>
               {/* Diamond Decoration - Top Right */}
               <motion.div
-                className="absolute -top-10 right-25 z-30"
+                className='absolute -top-10 right-25 z-30'
                 initial={{ rotate: 0, scale: 1, y: 0 }}
                 animate={{
                   rotate: [12, -12, 12],
                   scale: [0.92, 1, 0.92],
-                  y: [0, -20, 0, 20, 0], // animación de subir y bajar
+                  y: [0, -20, 0, 20, 0] // animación de subir y bajar
                 }}
-                transition={{
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  duration: 10,
-                  ease: "easeInOut",
-                }}
-                style={{ width: "100px", height: "100px" }}
+                transition={{ repeat: Infinity, repeatType: 'loop', duration: 10, ease: 'easeInOut' }}
+                style={{ width: '100px', height: '100px' }}
               >
                 <Image
-                  src="/images/diamond-decoration.png"
-                  alt="Diamond Decoration Top Right"
+                  src='/images/diamond-decoration.png'
+                  alt='Diamond Decoration Top Right'
                   width={100}
                   height={100}
-                  className="object-contain"
+                  className='object-contain'
                   draggable={false}
                 />
               </motion.div>
 
               {/* Diamond Decoration - Bottom Left */}
               <motion.div
-                className="absolute bottom-18 left-5 z-30"
+                className='absolute bottom-18 left-5 z-30'
                 initial={{ rotate: 0, scale: 1, y: 0 }}
                 animate={{
                   rotate: [-12, 12, -12],
                   scale: [0.92, 1, 0.92],
-                  y: [0, 20, 0, -20, 0], // animación de subir y bajar
+                  y: [0, 20, 0, -20, 0] // animación de subir y bajar
                 }}
-                transition={{
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  duration: 10,
-                  ease: "easeInOut",
-                }}
-                style={{ width: "100px", height: "100px" }}
+                transition={{ repeat: Infinity, repeatType: 'loop', duration: 10, ease: 'easeInOut' }}
+                style={{ width: '100px', height: '100px' }}
               >
                 <Image
-                  src="/images/diamond-decoration.png"
-                  alt="Diamond Decoration Bottom Left"
+                  src='/images/diamond-decoration.png'
+                  alt='Diamond Decoration Bottom Left'
                   width={100}
                   height={100}
-                  className="object-contain"
+                  className='object-contain'
                   draggable={false}
-                  style={{ filter: "brightness(1) grayscale(1)" }}
+                  style={{ filter: 'brightness(1) grayscale(1)' }}
                 />
               </motion.div>
 
               {/* Gift Card - Behind and smaller */}
               <motion.div
-                className="absolute top-1/2 left-1/2 transform translate-x-[10%] -translate-y-[70%] z-10"
+                className='absolute top-1/2 left-1/2 transform translate-x-[10%] -translate-y-[70%] z-10'
                 variants={giftCardVariants}
                 style={{
-                  width: "45%",
-                  height: "45%",
-                  transform: "translate(-30%, -40%) rotate(15deg)",
+                  width: '45%',
+                  height: '45%',
+                  transform: 'translate(-30%, -40%) rotate(15deg)',
                 }}
               >
                 <Image
-                  src="/images/Blue-Gift-Card-50.png"
-                  alt="Blue Gift Card"
+                  src='/images/Blue-Gift-Card-50.png'
+                  alt='Blue Gift Card'
                   fill
-                  className="object-contain w-full h-full"
+                  className='object-contain w-full h-full'
                   draggable={false}
                 />
               </motion.div>
 
               {/* Phone Mock - Main image */}
-              <motion.div className="relative z-20" variants={phoneVariants}>
+              <motion.div className='relative z-20' variants={phoneVariants}>
                 <Image
-                  src="/images/mock.png"
-                  alt="Phone mockup showing Claim Portal interface"
+                  src='/images/mock.png'
+                  alt='Phone mockup showing Claim Portal interface'
                   width={200}
                   height={300}
-                  className="object-contain w-[85%] h-auto drop-shadow-2xl"
+                  className='object-contain w-[85%] h-auto drop-shadow-2xl'
                   draggable={false}
                   unoptimized
                 />
@@ -185,12 +175,12 @@ export default function TwoColumnSection() {
 
           {/* Right Column - Text Content */}
           <motion.div
-            className="space-y-4 order-2 lg:order-2 self-start"
+            className='space-y-4 order-2 lg:order-2 self-start'
             variants={rightColumnVariants}
           >
             {/* Main Heading */}
             <motion.h2
-              className="text-2xl md:text-3xl lg:text-4xl font-semibold gradient-text leading-tight pr-0 text-center lg:text-left"
+              className='text-2xl md:text-3xl lg:text-4xl font-semibold text-[#0055D6] leading-tight pr-0 text-center lg:text-left'
               variants={rightColumnVariants}
             >
               Claim Portal converts physical/digital gift cards into $RWAINC
@@ -199,7 +189,7 @@ export default function TwoColumnSection() {
 
             {/* Subtext */}
             <motion.p
-              className="text-white/80 text-lg md:text-xl"
+              className='text-gray-400 text-lg md:text-xl'
               variants={rightColumnVariants}
             >
               From kiosk cash to digital assets — in seconds.
@@ -207,19 +197,19 @@ export default function TwoColumnSection() {
 
             {/* Button */}
             <motion.div
-              className="flex justify-center"
+              className='flex justify-center'
               variants={rightColumnVariants}
             >
               <Button
-                label="Redeem Now"
-                icon={<IoArrowDownOutline className="w-3.5 h-3.5" />}
+                label='Redeem Now'
+                icon={<IoArrowDownOutline className='w-3.5 h-3.5' />}
                 onClick={handleRedeemClick}
-                variant="inverted"
+                variant='inverted'
               />
             </motion.div>
           </motion.div>
         </div>
       </div>
     </motion.section>
-  );
+  )
 }

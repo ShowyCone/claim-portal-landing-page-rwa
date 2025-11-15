@@ -50,10 +50,10 @@ export default async function RedeemPage({ searchParams }: PageProps) {
             reason === "expired"
               ? "This redeem link has expired."
               : reason === "already_redeemed"
-                ? "This gift card was already redeemed."
-                : reason === "not_found"
-                  ? "Gift card does not exist."
-                  : "Redeem failed.";
+              ? "This gift card was already redeemed."
+              : reason === "not_found"
+              ? "Gift card does not exist."
+              : "Redeem failed.";
           isError = true;
           content = <ErrorBox title="Cannot redeem" body={msg} />;
           // Client-side telemetry reflecting final API response
@@ -73,7 +73,7 @@ export default async function RedeemPage({ searchParams }: PageProps) {
             <SuccessBox
               title="Redeemed successfully"
               body={`Redeemed ${formatAmount(
-                data.redeemedAmount,
+                data.redeemedAmount
               )}. Remaining balance: ${formatAmount(data.remainingBalance)}.`}
               code={data.card?.code ?? "UNKNOWN"}
             />
@@ -112,12 +112,12 @@ export default async function RedeemPage({ searchParams }: PageProps) {
             reason === "already_redeemed"
               ? "This gift card was already redeemed."
               : reason === "not_found"
-                ? "Gift card does not exist."
-                : reason === "insufficient_balance"
-                  ? "Insufficient balance to redeem 100."
-                  : reason === "invalid_amount"
-                    ? "Invalid amount."
-                    : "Redeem failed.";
+              ? "Gift card does not exist."
+              : reason === "insufficient_balance"
+              ? "Insufficient balance to redeem 100."
+              : reason === "invalid_amount"
+              ? "Invalid amount."
+              : "Redeem failed.";
           isError = true;
           content = <ErrorBox title="Cannot redeem" body={msg} />;
           await postScanEvent({
@@ -137,7 +137,7 @@ export default async function RedeemPage({ searchParams }: PageProps) {
             <SuccessBox
               title="Redeemed successfully"
               body={`Redeemed ${formatAmount(
-                data.redeemedAmount,
+                data.redeemedAmount
               )}. Remaining balance: ${formatAmount(data.remainingBalance)}.`}
               code={data.card?.code ?? "UNKNOWN"}
             />
@@ -181,31 +181,29 @@ export default async function RedeemPage({ searchParams }: PageProps) {
   }
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-b from-[#0a0a0a] to-[#1a1a1a] relative overflow-hidden">
-      {/* Particle Background */}
-      <div className="absolute inset-0 particle-bg">
-        <div className="absolute top-20 left-10 w-2 h-2 bg-[#3EF2D0] rounded-full animate-pulse"></div>
-        <div className="absolute top-40 right-20 w-1 h-1 bg-[#0055D6] rounded-full animate-ping"></div>
-        <div className="absolute bottom-32 left-1/4 w-1.5 h-1.5 bg-[#3EF2D0] rounded-full animate-pulse"></div>
-        <div className="absolute bottom-20 right-1/3 w-1 h-1 bg-white rounded-full animate-ping"></div>
-      </div>
-
-      {/* Gradient Overlays */}
-      <div className="absolute inset-0 z-0">
+    <main
+      className={`min-h-screen flex flex-col items-center justify-center p-6 ${
+        isError ? "bg-red-50" : "bg-[#EFEFEF]"
+      } relative overflow-hidden`}
+    >
+      <div className="min-h-screen w-full absolute top-0 left-0 flex items-center justify-center">
+        {/* Radial Gradient Background from Bottom */}
         <div
-          className={`absolute inset-0 ${
-            isError
-              ? "bg-gradient-to-br from-red-500/10 via-transparent to-red-400/5"
-              : "bg-gradient-to-br from-[#3EF2D0]/10 via-transparent to-[#0055D6]/5"
-          } rounded-3xl`}
+          className="absolute inset-0 z-0"
+          style={{
+            background: isError
+              ? "radial-gradient(125% 125% at 50% 90%, #fff 40%, #ef4444 100%)"
+              : "radial-gradient(125% 125% at 50% 90%, #fff 40%, #0055D6 100%)",
+          }}
         />
+        {/* Your Content/Components */}
       </div>
       <div className="relative z-10">
         {content}
         <div className="mt-8 flex justify-between gap-4">
           <Link
             href="/giftcard"
-            className="inline-flex items-center text-sm text-white/70 hover:text-[#3EF2D0] transition-colors duration-300 font-medium"
+            className="inline-flex items-center text-sm text-[#020664] hover:text-[#0055D6] transition-colors duration-300 font-medium"
           >
             <svg
               className="w-4 h-4 mr-2"
@@ -225,7 +223,7 @@ export default async function RedeemPage({ searchParams }: PageProps) {
           <br />
           <Link
             href="/"
-            className="inline-flex items-center text-sm text-white/70 hover:text-[#3EF2D0] transition-colors duration-300 font-medium"
+            className="inline-flex items-center text-sm text-[#020664] hover:text-[#0055D6] transition-colors duration-300 font-medium"
           >
             <svg
               className="w-4 h-4 mr-2"
@@ -250,38 +248,36 @@ export default async function RedeemPage({ searchParams }: PageProps) {
 
 function ErrorBox({ title, body }: { title: string; body: string }) {
   return (
-    <div className="relative rounded-3xl p-16 w-full max-w-2xl bg-gradient-to-br from-[#1a1a1a]/95 via-[#2a2a2a]/90 to-[#1a1a1a]/95 backdrop-blur-xl border border-red-500/20 shadow-2xl overflow-hidden">
+    <div className="relative rounded-3xl p-8 w-full max-w-md bg-gradient-to-br from-white via-white/95 to-white/90 backdrop-blur-xl border border-white/20 shadow-2xl overflow-hidden">
       {/* Background gradient effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 via-transparent to-red-400/5 rounded-3xl" />
+      <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 via-transparent to-orange-500/10 rounded-3xl" />
 
       {/* Error icon background */}
-      <div className="absolute -top-6 -right-6 w-40 h-40 bg-gradient-to-br from-red-500/30 to-red-400/20 rounded-full blur-xl" />
+      <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-full blur-xl" />
 
       {/* Content */}
       <div className="relative z-10">
         {/* Error icon */}
-        <div className="mb-8 flex justify-center items-center">
+        <div className="mb-4 flex justify-center items-center">
           <Image
-            className="w-56 h-56"
+            className="w-36 h-36"
             src="/access-denied.svg"
             alt="Access denied"
-            width={224}
-            height={224}
+            width={144}
+            height={144}
             priority
           />
         </div>
 
-        <h1 className="text-4xl font-bold mb-6 text-center bg-gradient-to-r from-red-400 to-red-300 bg-clip-text text-transparent">
+        <h1 className="text-2xl font-bold mb-3 bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
           {title}
         </h1>
 
-        <p className="text-lg text-white/70 leading-relaxed text-center">
-          {body}
-        </p>
+        <p className="text-sm text-gray-600 leading-relaxed">{body}</p>
       </div>
 
       {/* Shimmer effect */}
-      <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-red-400/10 to-transparent" />
+      <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
     </div>
   );
 }
@@ -296,45 +292,40 @@ function SuccessBox({
   code: string;
 }) {
   return (
-    <div className="relative rounded-3xl p-16 w-full max-w-2xl bg-gradient-to-br from-[#1a1a1a]/95 via-[#2a2a2a]/90 to-[#1a1a1a]/95 backdrop-blur-xl border border-[#3EF2D0]/20 shadow-2xl overflow-hidden">
+    <div className="relative rounded-3xl p-8 w-full max-w-md bg-gradient-to-br from-white via-white/95 to-white/90 backdrop-blur-xl border border-white/20 shadow-2xl overflow-hidden">
       {/* Success icon background */}
-      <div className="absolute -top-6 -right-6 w-40 h-40 bg-gradient-to-br from-[#3EF2D0]/30 to-[#0055D6]/20 rounded-full blur-xl" />
+      <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-[#3EF2D0]/20 to-[#0055D6]/20 rounded-full blur-xl" />
 
       {/* Content */}
       <div className="relative z-10">
         {/* Success icon */}
-        <div className="mb-8 flex justify-center items-center">
+        <div className="mb-4 flex justify-center items-center">
           <Image
-            className="w-56 h-56"
+            className="w-36 h-36"
             src="/order-confirmed.svg"
             alt="Order confirmed"
-            width={224}
-            height={224}
+            width={144}
+            height={144}
             priority
           />
         </div>
 
-        <h1 className="text-4xl font-bold mb-6 text-center gradient-text">
+        <h1 className="text-2xl font-bold mb-3 bg-gradient-to-r from-[#020664] to-[#0055D6] bg-clip-text text-transparent">
           {title}
         </h1>
 
-        <p className="text-lg text-white/70 mb-10 leading-relaxed text-center">
-          {body}
-        </p>
+        <p className="text-sm text-gray-600 mb-6 leading-relaxed">{body}</p>
 
         {/* Code section */}
-        <div className="bg-gradient-to-r from-[#3EF2D0]/10 to-[#0055D6]/10 rounded-xl p-8 border border-[#3EF2D0]/20">
-          <div className="text-base font-medium text-white/60 mb-3 text-center">
+        <div className="bg-gradient-to-r from-[#020664]/5 to-[#0055D6]/5 rounded-xl p-4 border border-[#0055D6]/10">
+          <div className="text-xs font-medium text-[#020664]/70 mb-1">
             Gift Card Code
           </div>
-          <div className="font-mono text-2xl font-bold gradient-text tracking-wider text-center">
+          <div className="font-mono text-lg font-bold bg-gradient-to-r from-[#020664] to-[#0055D6] bg-clip-text text-transparent tracking-wider">
             {mask(code)}
           </div>
         </div>
       </div>
-
-      {/* Shimmer effect */}
-      <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-[#3EF2D0]/10 to-transparent" />
     </div>
   );
 }
